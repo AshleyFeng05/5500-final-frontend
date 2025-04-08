@@ -1,0 +1,28 @@
+.footer {
+    color: #d1d1d1;
+    font-size: 0.9rem;
+}
+
+.footer-logo {
+    width: 40px;
+    height: auto;
+}
+
+.footer-links {
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin: 0, 10px;
+}
+
+.footer-links a {
+    color: #d1d1d1;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+.footer-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
@@ -10,10 +10,21 @@ import Col from 'react-bootstrap/Col';
 import './UserAuthModal.css';
 
 
+interface UserAuthModalProps {
+    show: boolean;
+    onHide: () => void;
+    defaultSelected?: "signIn" | "signUp";
+}
 
-const UserAuthModal = ({ show, onHide }: { show: boolean; onHide: () => void }) => {
+const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthModalProps) => {
     const [selected, setSelected] = useState("signIn");
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        if (show) {
+            setSelected(defaultSelected);
+        }
+    }, [show, defaultSelected]);
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevState) => !prevState);
@@ -137,6 +148,13 @@ const UserAuthModal = ({ show, onHide }: { show: boolean; onHide: () => void }) 
                                     {selected === "signIn" ? "Continue to Sign In" : "Sign Up"}
                                 </span>
                             </Button>
+                            {selected === "signIn" && (
+                                <Form.Text className="text-muted mt-3 d-block">
+                                    By tapping any “Continue” button, you agree to DoorDash’s{" "}
+                                    <a href="#terms">Terms</a>, including a waiver of your jury trial right, and{" "}
+                                    <a href="#privacy">Privacy Policy</a>. We may text you a verification code. Msg & data rates apply.
+                                </Form.Text>
+                            )}
                         </Form>
                     </Container>
                 </div>

@@ -1,24 +1,21 @@
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-
-import AppNavbar from './components/AppNavbar';
+import Home from './pages/home';
 
 import './App.scss';
-
 
 
 function App() {
   return (
     <Provider store={store}>
-      <AppNavbar />
-      <div className="App" style={{ marginTop: '56px' }}>
-        <header className="App-header">
-          <h1>Welcome to My App</h1>
-          <p>This is a simple React application.</p>
-
-        </header>
-      </div>
+      <HashRouter>
+        <Routes>
+          <Route path='/' element={<Navigate to='/home' />} />
+          <Route path='/home' element={<Home />} />
+        </Routes>
+      </HashRouter>
     </Provider>
   );
 }

@@ -1,0 +1,40 @@
+.top-hero {
+    background-image: url('../img/hero_desktop.png');
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    height: 650px;
+    justify-content: center;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.hero-text {
+    text-align: center;
+}
+
+
+
+.feature-image {
+    width: 154px;
+    height: auto;
+    display: block;
+}
+
+.features-container {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+button.text-danger {
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.feature-text {
+    max-width: 250px;
+    text-align: center;
+}
