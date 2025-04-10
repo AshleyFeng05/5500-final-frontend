@@ -37,7 +37,7 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
             <Container className={`${styles.features_container} my-5 py-5`}>
                 <Row>
 
-                    <Col md={4} sm={12} className={`${styles.feature_card} mb-4 text-center`}>
+                    <Col md={4} sm={12} className={`mb-4 text-center`}>
                         <img
                             src={ScootImage}
                             alt="Become a Dasher"
@@ -52,7 +52,7 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
                         </div>
                     </Col>
 
-                    <Col md={4} sm={12} className={`${styles.feature_card} mb-4 text-center`}>
+                    <Col md={4} sm={12} className={`mb-4 text-center`}>
                         <img
                             src={StoreImage}
                             alt="Become a Merchant"
@@ -67,7 +67,7 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
                         </div>
                     </Col>
 
-                    <Col md={4} sm={12} className={`${styles.feature_card} mb-4 text-center`}>
+                    <Col md={4} sm={12} className={`mb-4 text-center`}>
                         <img
                             src={IphoneImage}
                             alt="Get the best DoorDash experience"

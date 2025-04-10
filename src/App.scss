@@ -1,7 +1,7 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
-$danger: $red; // Change the "danger" variant to red
+$danger: #EB1700; // Change the "danger" variant to red
 $theme-colors: map-merge($theme-colors, ("danger": $danger));
 
 @import "bootstrap"

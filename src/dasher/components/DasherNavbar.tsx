@@ -25,10 +25,6 @@ const DasherNavbar = () => {
                                 className="rounded-pill fw-bold"
 
                             >Sign In</Button>
-                            <Button variant="light"
-                                className="rounded-pill fw-bold"
-
-                            >Sign Up</Button>
                         </Nav>
                     </Navbar.Collapse>
 
