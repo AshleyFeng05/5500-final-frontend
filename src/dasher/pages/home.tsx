@@ -8,7 +8,7 @@ import { faUsers, faBriefcase, faClock } from "@fortawesome/free-solid-svg-icons
 import styles from "./home.module.css";
 
 
-import Footer from "../../customer/components/Footer";
+import DasherFooter from "../components/DasherFooter";
 
 
 const DasherHome = () => {
@@ -72,7 +72,7 @@ const DasherHome = () => {
             </Container>
 
 
-            <Footer />
+            <DasherFooter />
         </>
     )
 }

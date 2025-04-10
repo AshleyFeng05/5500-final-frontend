@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 
 import { ReactComponent as Logo } from '../img/logo.svg';
@@ -35,7 +35,7 @@ const Footer = () => {
                     </Col>
                     <Col md={3} xs={12} className="text-center text-md-end">
                         <FontAwesomeIcon icon={faFacebook} className="me-3" />
-                        <FontAwesomeIcon icon={faTwitter} className="me-3" />
+                        <FontAwesomeIcon icon={faXTwitter} className="me-3" />
                         <FontAwesomeIcon icon={faInstagram} />
                     </Col>
                 </Row>
