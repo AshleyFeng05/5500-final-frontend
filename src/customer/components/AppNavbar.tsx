@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 
 import UserAuthModal from './UserAuthModal';
@@ -20,7 +19,7 @@ const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }
     return (
         <Navbar bg="light" expand="md" className="shadow-sm" fixed="top">
             <Container>
-                <Navbar.Brand href="#home" className="fw-bold text-danger">
+                <Navbar.Brand href="/home" className="fw-bold text-danger">
                     <Logo
                         width="30"
                         height="30"

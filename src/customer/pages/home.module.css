@@ -1,4 +1,4 @@
-.top-hero {
+.top_hero {
     background-image: url('../img/hero_desktop.png');
     display: flex;
     flex-flow: column;
@@ -12,29 +12,29 @@
     background-repeat: no-repeat;
 }
 
-.hero-text {
+.hero_text {
     text-align: center;
 }
 
 
 
-.feature-image {
+.feature_image {
     width: 154px;
     height: auto;
     display: block;
 }
 
-.features-container {
+.features_container {
     max-width: 1080px;
     margin: 0 auto;
 }
 
-button.text-danger {
+a.text-danger {
     font-size: 1rem;
     text-decoration: none;
 }
 
-.feature-text {
+.feature_text {
     max-width: 250px;
     text-align: center;
 }

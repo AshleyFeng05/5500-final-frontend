@@ -1,8 +1,9 @@
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import Home from './pages/home';
+import Customer from './customer/index';
+import Dasher from './dasher';
 
 import './App.scss';
 
@@ -10,12 +11,23 @@ import './App.scss';
 function App() {
   return (
     <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Navigate to='/home' />} />
-          <Route path='/home' element={<Home />} />
+
+          {/* Customer Routes */}
+          <Route path="/*">
+            <Route index element={<Customer />} />
+          </Route>
+
+
+          {/* Dasher Routes */}
+          <Route path="/dasher">
+            <Route index element={<Dasher />} />
+          </Route>
+
+
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </Provider>
   );
 }
