@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
-import Modal from 'react-bootstrap/Modal';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Alert, Col, Row, Button, Form, Container, Modal } from 'react-bootstrap';
 
 import './UserAuthModal.css';
 
@@ -16,9 +12,60 @@ interface UserAuthModalProps {
     defaultSelected?: "signIn" | "signUp";
 }
 
+interface FormData {
+    signIn: {
+        email: string;
+        password: string;
+    };
+    signUp: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        country: string;
+        mobileNumber: string;
+        password: string;
+    };
+}
+
 const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthModalProps) => {
-    const [selected, setSelected] = useState("signIn");
+    const [selected, setSelected] = useState<"signIn" | "signUp">("signIn");
     const [showPassword, setShowPassword] = useState(false);
+
+    const [signInData, setSignInData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [signUpData, setSignUpData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        country: "+1 (US)",
+        mobileNumber: "",
+        password: "",
+    });
+
+    const handleSignInChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setSignInData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSignUpChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setSignUpData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [alertVariant, setAlertVariant] = useState<string>("success");
+    const closeAlert = () => {
+        setAlertMessage(null);
+    }
 
     useEffect(() => {
         if (show) {
@@ -30,15 +77,37 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
         setShowPassword((prevState) => !prevState);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+    const baseUrl = process.env.REACT_APP_BASE_API + "/customers";
 
-        if (selected === "signIn") {
-            console.log("Sign In form submitted");
-            // Add your sign-in logic here
-        } else if (selected === "signUp") {
-            console.log("Sign Up form submitted");
-            // Add your sign-up logic here
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        closeAlert();
+        try {
+            if (selected === "signUp") {
+                const combinedPhone = `${signUpData.country.split(" ")[0]}${signUpData.mobileNumber}`;
+                const dataToSubmit = {
+                    ...signUpData,
+                    phone: combinedPhone,
+                }
+                console.log(dataToSubmit);
+                const response = await axios.post(`${baseUrl}/signup`, dataToSubmit);
+                console.log(response);
+                setAlertVariant("success");
+                setAlertMessage("Sign up successful! Please proceed to sign in.");
+                setSelected("signIn");
+            } else if (selected === "signIn") {
+                const response = await axios.post(`${baseUrl}/login`, signInData);
+                setAlertVariant("success");
+                setAlertMessage("Sign in successful!");
+            }
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setAlertVariant("danger");
+                setAlertMessage(error.response.data.message);
+            } else {
+                setAlertVariant("danger");
+                setAlertMessage("An error occurred. Please try again.");
+            }
         }
     };
 
@@ -52,13 +121,13 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                     <div className="toggle-container rounded-pill mx-auto">
                         <button
                             className={`toggle-button rounded-pill ${selected === "signIn" ? "active" : ""}`}
-                            onClick={() => setSelected("signIn")}
+                            onClick={() => { closeAlert(); setSelected("signIn") }}
                         >
                             Sign In
                         </button>
                         <button
                             className={`toggle-button rounded-pill ${selected === "signUp" ? "active" : ""}`}
-                            onClick={() => setSelected("signUp")}
+                            onClick={() => { closeAlert(); setSelected("signUp") }}
                         >
                             Sign Up
                         </button>
@@ -69,11 +138,22 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                                 <>
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label className="fw-bold">Email</Form.Label>
-                                        <Form.Control type="email" placeholder="Email address" />
+                                        <Form.Control
+                                            type="email"
+                                            value={signInData.email}
+                                            placeholder="Email address"
+                                            name="email" onChange={handleSignInChange}
+                                        />
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label className="fw-bold">Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
+                                        <Form.Control
+                                            type="password"
+                                            value={signInData.password}
+                                            placeholder="Password"
+                                            name="password"
+                                            onChange={handleSignInChange}
+                                        />
                                     </Form.Group>
                                 </>
                             ) : (
@@ -82,25 +162,40 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                                         <Col>
                                             <Form.Group controlId="formFirstName">
                                                 <Form.Label className="fw-bold">First Name</Form.Label>
-                                                <Form.Control type="text" />
+                                                <Form.Control
+                                                    type="text"
+                                                    value={signUpData.firstName}
+                                                    name="firstName"
+                                                    onChange={handleSignUpChange}
+                                                />
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group controlId="formLastname">
                                                 <Form.Label className="fw-bold">Last Name</Form.Label>
-                                                <Form.Control type="text" />
+                                                <Form.Control
+                                                    type="text"
+                                                    value={signUpData.lastName}
+                                                    name="lastName"
+                                                    onChange={handleSignUpChange}
+                                                />
                                             </Form.Group>
                                         </Col>
                                     </Row>
                                     <Form.Group controlId="formEmail" className="mb-3">
                                         <Form.Label className="fw-bold">Email</Form.Label>
-                                        <Form.Control type="email" />
+                                        <Form.Control
+                                            type="email"
+                                            value={signUpData.email}
+                                            name="email"
+                                            onChange={handleSignUpChange}
+                                        />
                                     </Form.Group>
                                     <Row className="mb-3">
                                         <Col>
                                             <Form.Group controlId="formCountry">
                                                 <Form.Label className="fw-bold">Country</Form.Label>
-                                                <Form.Select>
+                                                <Form.Select name="country" onChange={handleSignUpChange} value={signUpData.country}>
                                                     <option>+1 (US)</option>
                                                     <option>+44 (UK)</option>
                                                     <option>+91 (India)</option>
@@ -110,7 +205,12 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                                         <Col>
                                             <Form.Group controlId="formMobileNumber">
                                                 <Form.Label className="fw-bold">Mobile Number</Form.Label>
-                                                <Form.Control type="text" />
+                                                <Form.Control
+                                                    type="text"
+                                                    value={signUpData.mobileNumber}
+                                                    name="mobileNumber"
+                                                    onChange={handleSignUpChange}
+                                                />
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -119,8 +219,11 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                                         <div className="position-relative">
                                             <Form.Control
                                                 type={showPassword ? "text" : "password"}
+                                                value={signUpData.password}
                                                 placeholder="At least 10 characters"
                                                 className="pe-5"
+                                                name='password'
+                                                onChange={handleSignUpChange}
                                             />
                                             <Button
                                                 variant="link"
@@ -142,6 +245,11 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
                                         code. Msg & data rates apply.
                                     </Form.Text>
                                 </>
+                            )}
+                            {alertMessage && (
+                                <Alert variant={alertVariant} onClose={closeAlert} dismissible>
+                                    {alertMessage}
+                                </Alert>
                             )}
                             <Button variant="danger rounded-pill" type="submit" className="w-100 mt-3">
                                 <span className="fw-bold">
