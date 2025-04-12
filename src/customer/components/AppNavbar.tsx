@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { RootState } from '../../services/store';
 
 import UserAuthModal from './UserAuthModal';
 import { ReactComponent as Logo } from '../img/logo.svg';
@@ -15,6 +16,7 @@ interface AppNavbarProps {
 
 const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }: AppNavbarProps) => {
 
+    const { customerAuthenticated, customer } = useSelector((state: RootState) => state.auth);
 
     return (
         <Navbar bg="light" expand="md" className="shadow-sm" fixed="top">
@@ -29,26 +31,32 @@ const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }
                     DASHDOOR
                 </Navbar.Brand>
 
-                {/* Toggle for mobile */}
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                {customerAuthenticated && customer ? (
+                    <></>
+                ) : (
+                    <>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Nav className="gap-2">
-                        <Button variant="danger"
-                            className="rounded-pill fw-bold"
-                            onClick={() => onOpenAuthModal("signIn")}
-                        >Sign In</Button>
-                        <Button variant="light"
-                            className="rounded-pill fw-bold"
-                            onClick={() => onOpenAuthModal("signUp")}
-                        >Sign Up</Button>
-                    </Nav>
-                </Navbar.Collapse>
-                <UserAuthModal
-                    show={showAuthModal}
-                    onHide={onHideAuthModal}
-                    defaultSelected={authMode}
-                />
+                        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                            <Nav className="gap-2">
+                                <Button variant="danger"
+                                    className="rounded-pill fw-bold"
+                                    onClick={() => onOpenAuthModal("signIn")}
+                                >Sign In</Button>
+                                <Button variant="light"
+                                    className="rounded-pill fw-bold"
+                                    onClick={() => onOpenAuthModal("signUp")}
+                                >Sign Up</Button>
+                            </Nav>
+                        </Navbar.Collapse>
+                        <UserAuthModal
+                            show={showAuthModal}
+                            onHide={onHideAuthModal}
+                            defaultSelected={authMode}
+                        />
+                    </>
+                )}
+
             </Container>
         </Navbar >
     )

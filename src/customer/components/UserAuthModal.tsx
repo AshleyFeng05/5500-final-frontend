@@ -4,7 +4,10 @@ import axios from "axios";
 import { Alert, Col, Row, Button, Form, Container, Modal } from 'react-bootstrap';
 
 import './UserAuthModal.css';
+import { useDispatch } from 'react-redux';
 
+import { useLoginMutation, useSignupMutation } from '../../services/customerApi';
+import { customerLogin } from '../../services/authSlice';
 
 interface UserAuthModalProps {
     show: boolean;
@@ -77,37 +80,45 @@ const UserAuthModal = ({ show, onHide, defaultSelected = "signIn" }: UserAuthMod
         setShowPassword((prevState) => !prevState);
     };
 
-    const baseUrl = process.env.REACT_APP_BASE_API + "/customers";
+    const dispatch = useDispatch();
+    const [login] = useLoginMutation();
+    const [signup] = useSignupMutation();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         closeAlert();
+
         try {
             if (selected === "signUp") {
-                const combinedPhone = `${signUpData.country.split(" ")[0]}${signUpData.mobileNumber}`;
+                const { mobileNumber, country, ...rest } = signUpData;
+                const combinedPhone = `${country.split(" ")[0]}${mobileNumber}`;
                 const dataToSubmit = {
-                    ...signUpData,
+                    ...rest,
                     phone: combinedPhone,
-                }
-                console.log(dataToSubmit);
-                const response = await axios.post(`${baseUrl}/signup`, dataToSubmit);
+                };
+
+                const response = await signup(dataToSubmit).unwrap();
+
                 console.log(response);
                 setAlertVariant("success");
                 setAlertMessage("Sign up successful! Please proceed to sign in.");
                 setSelected("signIn");
+
             } else if (selected === "signIn") {
-                const response = await axios.post(`${baseUrl}/login`, signInData);
+                const user = await login(signInData).unwrap();
+
+                console.log(user);
+                dispatch(customerLogin(user));
                 setAlertVariant("success");
                 setAlertMessage("Sign in successful!");
             }
+
         } catch (error: any) {
-            if (error.response && error.response.data && error.response.data.message) {
-                setAlertVariant("danger");
-                setAlertMessage(error.response.data.message);
-            } else {
-                setAlertVariant("danger");
-                setAlertMessage("An error occurred. Please try again.");
-            }
+            console.error("Auth error:", error);
+            setAlertVariant("danger");
+            setAlertMessage(
+                error?.data?.message || "An error occurred. Please try again."
+            );
         }
     };
 

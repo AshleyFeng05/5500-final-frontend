@@ -9,13 +9,18 @@ import styles from "./home.module.css";
 import ScootImage from "../img/ScootScoot.svg";
 import StoreImage from "../img/Storefront.svg";
 import IphoneImage from "../img/iphone.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 interface HomeProps {
     handleShowUserAuthModal: (mode: "signIn" | "signUp") => void;
 }
 
 const Home = ({ handleShowUserAuthModal }: HomeProps) => {
-
+    const { customerAuthenticated, customer } = useSelector((state: RootState) => state.auth);
+    const navigate = useNavigate();
     return (
         <>
 
@@ -25,12 +30,24 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
                     <p className="text-light">Just restaurants actually...</p>
                 </div>
                 <br />
-                <Button variant="light"
-                    className="rounded-pill fw-bold"
-                    onClick={() => handleShowUserAuthModal("signIn")}
-                ><FontAwesomeIcon icon={faUser} />
-                    {" "}Sign in to get started
-                </Button>
+                {customerAuthenticated && customer ? (
+                    <>
+                        <Button variant="light"
+                            className="rounded-pill fw-bold"
+                            onClick={() => navigate("/dashboard")}
+                        >Continue to Dashboard</Button>
+                    </>
+                ) : (
+                    <>
+                        <Button variant="light"
+                            className="rounded-pill fw-bold"
+                            onClick={() => handleShowUserAuthModal("signIn")}
+                        ><FontAwesomeIcon icon={faUser} />
+                            {" "}Sign in to get started
+                        </Button>
+                    </>
+                )}
+
             </div>
 
 
@@ -83,7 +100,7 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
                     </Col>
                 </Row>
             </Container>
-
+            <Footer />
         </>
     )
 }

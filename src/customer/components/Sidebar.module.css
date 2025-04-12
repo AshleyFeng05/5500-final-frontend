@@ -1,0 +1,48 @@
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding: 12px;
+    margin-top: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.navLink {
+    color: #333;
+    font-size: 16px;
+    padding: 4px 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    height: 32px;
+}
+
+.navLink:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.navLink.active {
+    background-color: #ffe6e6;
+    color: #D1311F;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+.navItem {
+    margin-bottom: 10px;
+}
+
+.hr {
+    border: none;
+    border-top: 1px solid #bbb;
+    width: 85%;
+    margin: 1rem auto;
+}

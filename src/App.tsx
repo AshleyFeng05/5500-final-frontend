@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { store } from './services/store';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Customer from './customer/index';
@@ -15,15 +15,10 @@ function App() {
         <Routes>
 
           {/* Customer Routes */}
-          <Route path="/*">
-            <Route index element={<Customer />} />
-          </Route>
-
+          <Route path="/*" element={<Customer />} />
 
           {/* Dasher Routes */}
-          <Route path="/dasher">
-            <Route index element={<Dasher />} />
-          </Route>
+          <Route path="/dasher" element={<Dasher />} />
 
 
         </Routes>

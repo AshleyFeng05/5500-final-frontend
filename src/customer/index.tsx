@@ -4,6 +4,8 @@ import { useState } from "react";
 import Home from "./pages/home";
 import AppNavbar from "./components/AppNavbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Dashboard from "./pages/dashboard";
 
 
 const Customer = () => {
@@ -26,12 +28,19 @@ const Customer = () => {
             />
             <div style={{ marginTop: '56px' }}>
                 <Routes>
+                    {/* Home page route */}
                     <Route index element={
                         <Home handleShowUserAuthModal={handleShowUserAuthModal} />
                     } />
+
+                    {/* Protected routes */}
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="orders" element={<div>Orders</div>} />
+                    </Route>
+
                 </Routes>
             </div>
-            <Footer />
         </>
     );
 }
