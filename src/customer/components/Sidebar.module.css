@@ -20,6 +20,7 @@
     align-items: center;
     border-radius: 5px;
     height: 32px;
+    text-decoration: none;
 }
 
 .navLink:hover {

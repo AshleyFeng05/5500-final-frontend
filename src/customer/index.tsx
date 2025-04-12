@@ -34,10 +34,10 @@ const Customer = () => {
                     } />
 
                     {/* Protected routes */}
-                    <Route element={<ProtectedRoute />}>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="orders" element={<div>Orders</div>} />
-                    </Route>
+                    {/* <Route element={<ProtectedRoute />}> */}
+                    <Route path="dashboard/*" element={<Dashboard />} />
+                    <Route path="orders" element={<div>Orders</div>} />
+                    {/* </Route> */}
 
                 </Routes>
             </div>
