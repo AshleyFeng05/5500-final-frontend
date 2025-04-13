@@ -28,6 +28,9 @@ const authSlice = createSlice({
             state.restaurantAuthenticated = false;
             state.restaurant = null;
         },
+        setRestaurant: (state, action) => {
+            state.restaurant = action.payload;
+        },
         dasherLogin: (state, action) => {
             state.dasherAuthenticated = true;
             state.dasher = action.payload;
@@ -44,6 +47,7 @@ export const {
     customerLogout,
     restaurantLogin,
     restaurantLogout,
+    setRestaurant,
     dasherLogin,
     dasherLogout
 } = authSlice.actions;

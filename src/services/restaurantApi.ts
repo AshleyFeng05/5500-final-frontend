@@ -49,10 +49,18 @@ export const restaurantApi = createApi({
                 body: credential,
             }),
         }),
+        updateRestaurantAccount: builder.mutation<Partial<RestaurantType>, Partial<RestaurantType> & { id: string }>({
+            query: ({ id, ...updatedRestaurant }) => ({
+                url: `/${id}`,
+                method: "PUT",
+                body: updatedRestaurant,
+            })
+        }),
     }),
 });
 
 export const {
     useLoginMutation,
     useSignupMutation,
+    useUpdateRestaurantAccountMutation,
 } = restaurantApi;
