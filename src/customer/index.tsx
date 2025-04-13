@@ -1,11 +1,13 @@
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Home from "./pages/home";
 import AppNavbar from "./components/AppNavbar";
-import Footer from "./components/Footer";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./pages/dashboard";
+
+import { RootState } from "../services/store";
+import { useSelector } from "react-redux";
 
 
 const Customer = () => {
@@ -17,6 +19,16 @@ const Customer = () => {
         setShowUserAuthModal(true);
     }
     const handleCloseUserAuthModal = () => setShowUserAuthModal(false);
+
+    const isAuthenticated = useSelector(
+        (state: RootState) => state.auth.customerAuthenticated
+    );
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/dashboard");
+        }
+    }, [isAuthenticated])
 
     return (
         <>
@@ -34,10 +46,10 @@ const Customer = () => {
                     } />
 
                     {/* Protected routes */}
-                    {/* <Route element={<ProtectedRoute />}> */}
-                    <Route path="dashboard/*" element={<Dashboard />} />
-                    <Route path="orders" element={<div>Orders</div>} />
-                    {/* </Route> */}
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="dashboard/*" element={<Dashboard />} />
+                        <Route path="orders" element={<div>Orders</div>} />
+                    </Route>
 
                 </Routes>
             </div>

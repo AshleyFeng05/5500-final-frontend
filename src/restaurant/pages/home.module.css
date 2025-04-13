@@ -1,0 +1,59 @@
+.restaurantHome {
+    height: 80vh;
+    display: flex;
+    align-items: stretch;
+    background-color: #5a1e1e;
+}
+.leftSection {
+    background-color: #5a1e1e;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    width: 90%;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+.imageOverlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.overlayText {
+    font-size: 1rem;
+    font-weight: bold;
+}

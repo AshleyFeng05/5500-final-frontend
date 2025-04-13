@@ -78,7 +78,7 @@ const Home = ({ handleShowUserAuthModal }: HomeProps) => {
                         <div className={`${styles.feature_text} mx-auto`}>
                             <h4 className="fw-bold">Become a Merchant</h4>
                             <p>Attract new customers and grow sales, starting with 0% commissions for up to 30 days.</p>
-                            <a href="" className="text-danger fw-bold text-decoration-none">
+                            <a href="/restaurant" className="text-danger fw-bold text-decoration-none">
                                 Sign up for DashDoor →
                             </a>
                         </div>

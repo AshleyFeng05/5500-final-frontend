@@ -21,7 +21,7 @@ const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }
     return (
         <Navbar bg="light" expand="md" className="shadow-sm" fixed="top">
             <Container>
-                <Navbar.Brand href="/home" className="fw-bold text-danger">
+                <Navbar.Brand href="/" className="fw-bold text-danger">
                     <Logo
                         width="30"
                         height="30"
