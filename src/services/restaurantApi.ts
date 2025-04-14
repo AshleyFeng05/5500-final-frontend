@@ -22,6 +22,7 @@ export type RestaurantType = {
     address: string;
     dishes: DishType[];
     imageUrl: string;
+    logoUrl: string;
     email: string;
     phone: string;
     password: string;

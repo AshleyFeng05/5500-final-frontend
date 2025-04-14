@@ -1,13 +1,29 @@
 .accountCard {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    background-color: #fff;
+    position: relative;
 }
 
-.image {
-    width: 200px;
-    height: 200px;
+.bannerWrapper {
+    position: relative;
+}
+
+.bannerImage {
+    max-height: 200px;
     object-fit: cover;
-    border-radius: 8px;
+    width: 100%;
+}
+
+.logoImage {
+    position: absolute;
+    bottom: -30px;
+    left: 20px;
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+    background-color: white;
+}
+
+.cardBody {
+    padding-top: 50px; /* space for logo overlap */
 }

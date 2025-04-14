@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../services/store";
-import { RestaurantType } from "../../services/restaurantApi";
-import styles from "./Account.module.css";
-import EditAccountModal from "./EditAccountModal";
 import { useState } from "react";
-import { useUpdateRestaurantAccountMutation } from "../../services/restaurantApi";
+import { RootState } from "../../services/store";
+import { RestaurantType, useUpdateRestaurantAccountMutation } from "../../services/restaurantApi";
 import { setRestaurant } from "../../services/authSlice";
+import EditAccountModal from "./EditAccountModal";
+import styles from "./Account.module.css";
 
 const Account = () => {
     const restaurant = useSelector<RootState, RestaurantType | null>(
@@ -16,10 +15,10 @@ const Account = () => {
     const [showModal, setShowModal] = useState(false);
     const [localData, setLocalData] = useState<RestaurantType | null>(restaurant);
     const [updateRestaurantAccount] = useUpdateRestaurantAccountMutation();
+
     const handleSave = async (updated: Partial<RestaurantType>) => {
         if (!localData) return;
         const merged = { ...localData, ...updated };
-        console.log(merged);
         try {
             const updatedRestaurant = await updateRestaurantAccount(merged).unwrap();
             setLocalData(merged);
@@ -34,20 +33,50 @@ const Account = () => {
     }
 
     return (
-        <div className="container py-4">
-            <h2>Account Information</h2>
-            <div><strong>Name:</strong> {localData.name}</div>
-            <div><strong>Email:</strong> {localData.email}</div>
-            <div><strong>Phone:</strong> {localData.phone}</div>
-            <div><strong>Address:</strong> {localData.address}</div>
-            <div className="my-3">
-                <strong>Image:</strong><br />
-                <img src={localData.imageUrl} alt="Restaurant" style={{ width: "200px" }} className="rounded mt-2" />
-            </div>
+        <div className="container w-50">
+            <h2 className="text-center mb-4">Account Information</h2>
 
-            <button className="btn btn-outline-primary mt-3" onClick={() => setShowModal(true)}>
-                Edit Account
-            </button>
+            <div className={`card shadow-sm ${styles.accountCard}`}>
+                <div className={styles.bannerWrapper}>
+                    <img
+                        src={localData.imageUrl}
+                        alt="Restaurant"
+                        className={`img-fluid rounded-top ${styles.bannerImage}`}
+                    />
+                    {localData.logoUrl && (
+                        <img
+                            src={localData.logoUrl}
+                            alt="Restaurant Logo"
+                            className={styles.logoImage}
+                        />
+                    )}
+                </div>
+
+                <div className={`card-body ${styles.cardBody} mt-4`}>
+                    <h2 className="card-title mb-4 fw-bold">{localData.name}</h2>
+
+                    <div className="mb-3 d-flex">
+                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Email:</div>
+                        <div>{localData.email}</div>
+                    </div>
+                    <div className="mb-3 d-flex">
+                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Phone:</div>
+                        <div>{localData.phone}</div>
+                    </div>
+                    <div className="mb-3 d-flex">
+                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Address:</div>
+                        <div>{localData.address}</div>
+                    </div>
+
+
+                    <button
+                        className="btn btn-outline-danger mt-3 rounded-pill"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Edit Account
+                    </button>
+                </div>
+            </div>
 
             <EditAccountModal
                 show={showModal}

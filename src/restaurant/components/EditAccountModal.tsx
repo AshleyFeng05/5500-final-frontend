@@ -21,19 +21,21 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
         phone: restaurant.phone,
         address: restaurant.address,
         imageUrl: restaurant.imageUrl,
+        logoUrl: restaurant.logoUrl,
     });
-    const [uploading, setUploading] = useState(false);
+    const [uploadingBanner, setUploadingBanner] = useState(false);
+    const [uploadingLogo, setUploadingLogo] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageUpload = async (e: React.ChangeEvent<any>, type: "imageUrl" | "logoUrl") => {
         const file = e.target.files?.[0];
         if (!file) return;
+        type === "imageUrl" ? setUploadingBanner(true) : setUploadingLogo(true);
 
-        setUploading(true);
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "restaurantbanner"); // Cloudinary preset
@@ -44,9 +46,9 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
         });
 
         const result = await res.json();
-        setFormData(prev => ({ ...prev, imageUrl: result.secure_url }));
+        setFormData(prev => ({ ...prev, [type]: result.secure_url }));
         console.log(result.secure_url);
-        setUploading(false);
+        type === "imageUrl" ? setUploadingBanner(false) : setUploadingLogo(false);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -78,16 +80,32 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
                         <Form.Label>Address</Form.Label>
                         <Form.Control name="address" value={formData.address} onChange={handleChange} />
                     </Form.Group>
+                    {/* Upload Banner Image */}
                     <Form.Group className="mb-3">
-                        <Form.Label>Upload Image</Form.Label>
-                        <Form.Control type="file" accept="image/*" onChange={handleImageUpload} />
-                        {uploading && <div className="text-secondary mt-1">Uploading...</div>}
+                        <Form.Label>Upload Banner Image</Form.Label>
+                        <Form.Control type="file" accept="image/*" onChange={(e) => handleImageUpload(e, "imageUrl")} />
+                        {uploadingBanner && <div className="text-secondary mt-1">Uploading banner...</div>}
                         {formData.imageUrl && (
                             <img
                                 src={formData.imageUrl}
-                                alt="Preview"
+                                alt="Banner Preview"
                                 className="img-fluid rounded mt-2"
                                 style={{ maxHeight: "200px" }}
+                            />
+                        )}
+                    </Form.Group>
+
+                    {/* Upload Logo Image */}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Upload Logo Image</Form.Label>
+                        <Form.Control type="file" accept="image/*" onChange={(e) => handleImageUpload(e, "logoUrl")} />
+                        {uploadingLogo && <div className="text-secondary mt-1">Uploading logo...</div>}
+                        {formData.logoUrl && (
+                            <img
+                                src={formData.logoUrl}
+                                alt="Logo Preview"
+                                className="img-thumbnail mt-2"
+                                style={{ width: "60px", height: "60px", objectFit: "cover" }}
                             />
                         )}
                     </Form.Group>
