@@ -1,11 +1,30 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
+
 
 import styles from "./home.module.css";
 import SignupForm from "../components/SignupForm";
 
 import homeBgImg from "../img/homeBgImg.jpg";
+import { Root } from "react-dom/client";
+
 
 
 const RestaurantHome = () => {
+
+    const navigate = useNavigate();
+    const restaurantAuthenticated = useSelector(
+        (state: RootState) => state.auth.restaurantAuthenticated
+    );
+
+    useEffect(() => {
+        if (restaurantAuthenticated) {
+            navigate("/restaurant/dashboard");
+        }
+    }, [restaurantAuthenticated, navigate]);
+
     return (
         <>
             <div className={`container-fluid me-0 ${styles.restaurantHome}`}>

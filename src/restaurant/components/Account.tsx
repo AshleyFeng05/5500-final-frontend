@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { RootState } from "../../services/store";
 import { RestaurantType, useUpdateRestaurantAccountMutation } from "../../services/restaurantApi";
-import { setRestaurant } from "../../services/authSlice";
+import { restaurantLogout, setRestaurant } from "../../services/authSlice";
 import EditAccountModal from "./EditAccountModal";
 import styles from "./Account.module.css";
 
 const Account = () => {
+
     const restaurant = useSelector<RootState, RestaurantType | null>(
         (state) => state.auth.restaurant
     );
@@ -27,6 +28,9 @@ const Account = () => {
             console.error("Failed to update restaurant account:", error);
         }
     };
+    const handleLogout = () => {
+        dispatch(restaurantLogout())
+    }
 
     if (!localData) {
         return <div className="text-center py-4">No Account Info Available</div>;
@@ -74,6 +78,12 @@ const Account = () => {
                         onClick={() => setShowModal(true)}
                     >
                         Edit Account
+                    </button>
+                    <button
+                        className="btn btn-outline-secondary mt-3 rounded-pill ms-2"
+                        onClick={handleLogout}
+                    >
+                        Logout
                     </button>
                 </div>
             </div>

@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+export const defaultAuthState = {
+    customerAuthenticated: false,
+    customer: null,
+    restaurantAuthenticated: false,
+    restaurant: null,
+    dasherAuthenticated: false,
+    dasher: null,
+}
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: {
-        customerAuthenticated: false,
-        customer: null,
-        restaurantAuthenticated: false,
-        restaurant: null,
-        dasherAuthenticated: false,
-        dasher: null,
-    },
+    initialState: defaultAuthState,
     reducers: {
         customerLogin: (state, action) => {
             state.customerAuthenticated = true;
@@ -19,6 +20,7 @@ const authSlice = createSlice({
         customerLogout: (state) => {
             state.customerAuthenticated = false;
             state.customer = null;
+            localStorage.removeItem("auth:customer");
         },
         restaurantLogin: (state, action) => {
             state.restaurantAuthenticated = true;
@@ -27,6 +29,7 @@ const authSlice = createSlice({
         restaurantLogout: (state) => {
             state.restaurantAuthenticated = false;
             state.restaurant = null;
+            localStorage.removeItem("auth:restaurant");
         },
         setRestaurant: (state, action) => {
             state.restaurant = action.payload;
@@ -38,6 +41,7 @@ const authSlice = createSlice({
         dasherLogout: (state) => {
             state.dasherAuthenticated = false;
             state.dasher = null;
+            localStorage.removeItem("auth:dasher");
         }
     }
 });
