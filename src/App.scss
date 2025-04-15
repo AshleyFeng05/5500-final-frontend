@@ -4,4 +4,28 @@
 $danger: #EB1700; // Change the "danger" variant to red
 $theme-colors: map-merge($theme-colors, ("danger": $danger));
 
-@import "bootstrap"
+@import "bootstrap";
+
+.form-control {
+    background-color: #f0f0f0;
+    border: none;
+
+    &:focus {
+        outline: 2px solid black;
+        box-shadow: none;
+        background-color: #f0f0f0;
+    }
+}
+
+// Apply the same styles to select elements
+select.form-control,
+.form-select {
+    background-color: #f0f0f0;
+    border: none;
+
+    &:focus {
+        outline: 2px solid black;
+        box-shadow: none;
+        background-color: #f0f0f0;
+    }
+}

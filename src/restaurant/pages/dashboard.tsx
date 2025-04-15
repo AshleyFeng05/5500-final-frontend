@@ -1,6 +1,7 @@
 import DashboardSidebar from "../components/DashboardSidebar";
 import { Routes, Route } from "react-router-dom";
 import Account from "../components/Account";
+import AddDishPage from "../components/AddDishPage";
 
 const Dashboard = () => {
 
@@ -11,6 +12,7 @@ const Dashboard = () => {
 
                 <Routes>
                     <Route path="account" element={<Account />} />
+                    <Route path="add-items" element={<AddDishPage />} />
                 </Routes>
             </div>
         </>

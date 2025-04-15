@@ -4,7 +4,9 @@ import authReducer from "./authSlice";
 
 import { customerApi } from "./customerApi";
 import { restaurantApi } from "./restaurantApi";
+import { dishApi } from "./dishApi";
 import { defaultAuthState } from "./authSlice";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 const loadAuth = () => {
     try {
@@ -27,6 +29,7 @@ export const store = configureStore({
         auth: authReducer,
         [customerApi.reducerPath]: customerApi.reducer,
         [restaurantApi.reducerPath]: restaurantApi.reducer,
+        [dishApi.reducerPath]: dishApi.reducer,
     },
     preloadedState: {
         auth: loadAuth(),
@@ -34,8 +37,10 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat(customerApi.middleware)
-            .concat(restaurantApi.middleware),
+            .concat(restaurantApi.middleware)
+            .concat(dishApi.middleware),
 });
+setupListeners(store.dispatch);
 
 store.subscribe(() => {
     const auth = store.getState().auth;

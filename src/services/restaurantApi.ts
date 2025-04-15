@@ -9,18 +9,10 @@ export type RestaurantSignupType = {
     phone: string;
     password: string;
 }
-export type DishType = {
-    dishId: string;
-    name: string;
-    price: number;
-    description: string;
-    imageUrl: string;
-}
 export type RestaurantType = {
     id: string;
     name: string;
     address: string;
-    dishes: DishType[];
     imageUrl: string;
     logoUrl: string;
     email: string;
