@@ -12,9 +12,17 @@ const Dashboard = () => {
             <div style={{ marginLeft: "220px", padding: "24px" }}>
 
                 <Routes>
-                    <Route index element={<RestaurantMenu />} />
-                    <Route path="account" element={<Account />} />
+
+                    <Route index element={<div>Active Orders</div>} />
+
+                    <Route path="menu" element={<RestaurantMenu />} />
+
                     <Route path="add-items" element={<AddDishPage />} />
+
+                    <Route path="orders" element={<div>Orders</div>} />
+
+                    <Route path="account" element={<Account />} />
+
                 </Routes>
             </div>
         </>

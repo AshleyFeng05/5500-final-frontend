@@ -2,10 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./DashboardSidebar.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faUser, faSquarePlus, faRectangleList } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUser, faSquarePlus, faRectangleList, faClipboardList } from "@fortawesome/free-solid-svg-icons";
 
 const navItems = [
-    { name: "Menu", icon: faHome, link: "" },
+    { name: "Active Orders", icon: faClipboardList, link: "" },
+    { name: "Menu", icon: faHome, link: "/menu" },
     { name: "Add Items", icon: faSquarePlus, link: "/add-items" },
     { name: "Orders", icon: faRectangleList, link: "/orders" },
     { name: "Account", icon: faUser, link: "/account" }

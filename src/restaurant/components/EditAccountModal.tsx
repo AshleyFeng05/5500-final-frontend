@@ -142,7 +142,17 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
                                     onChange={(e) => handleImageUpload(e, "imageUrl")}
                                     className={styles.formControl}
                                 />
-                                {uploadingBanner && <div className="text-secondary mt-1">Uploading banner...</div>}
+                                {uploadingBanner && (
+                                    <div className="upload-indicator">
+                                        <span className="spinner-border" role="status" aria-hidden="true"></span>
+                                        <span>Uploading banner...</span>
+                                    </div>
+                                )}
+                                {formData.imageUrl && !uploadingBanner && (
+                                    <div className="text-success mt-1">
+                                        <small>✓ Banner image uploaded</small>
+                                    </div>
+                                )}
                             </Form.Group>
                         </Col>
 
@@ -156,7 +166,17 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
                                     onChange={(e) => handleImageUpload(e, "logoUrl")}
                                     className={styles.formControl}
                                 />
-                                {uploadingLogo && <div className="text-secondary mt-1">Uploading logo...</div>}
+                                {uploadingLogo && (
+                                    <div className="upload-indicator">
+                                        <span className="spinner-border" role="status" aria-hidden="true"></span>
+                                        <span>Uploading logo...</span>
+                                    </div>
+                                )}
+                                {formData.logoUrl && !uploadingLogo && (
+                                    <div className="text-success mt-1">
+                                        <small>✓ Logo image uploaded</small>
+                                    </div>
+                                )}
                             </Form.Group>
                         </Col>
                     </Row>
@@ -181,14 +201,14 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
                 <Modal.Footer className={styles.modalFooter}>
                     <Button
                         variant="outline-secondary"
-                        className={styles.cancelButton}
+                        className={`${styles.cancelButton} rounded-pill`}
                         onClick={handleClose}
                     >
                         Cancel
                     </Button>
                     <Button
                         variant="danger"
-                        className={styles.saveButton}
+                        className={`${styles.saveButton} rounded-pill`}
                         type="submit"
                         disabled={uploadingBanner || uploadingLogo}
                     >

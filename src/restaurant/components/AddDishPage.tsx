@@ -4,6 +4,8 @@ import { useCreateDishMutation } from "../../services/dishApi";
 import { RootState } from "../../services/store";
 import { RestaurantType } from "../../services/restaurantApi";
 import { useSelector } from "react-redux";
+import { AlertType } from "../../util/components/CustomAlert";
+import CustomAlert from "../../util/components/CustomAlert";
 const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/drxzjafvf/image/upload";
 
 
@@ -22,6 +24,23 @@ const AddDishPage = () => {
         imageUrl: "",
     });
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const [alertConfig, setAlertConfig] = useState({
+        show: false,
+        message: "",
+        type: "success" as AlertType,
+    });
+    const showAlert = (message: string, type: AlertType) => {
+        setAlertConfig({
+            show: true,
+            message,
+            type
+        });
+    };
+    const closeAlert = () => {
+        setAlertConfig(prev => ({ ...prev, show: false }));
+    };
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -48,7 +67,7 @@ const AddDishPage = () => {
             console.log("Image uploaded:", result.secure_url);
         } catch (error) {
             console.error("Upload failed:", error);
-            alert("Image upload failed. Please try again.");
+            showAlert("Image upload failed. Please try again.", "error");
         } finally {
             setUploading(false);
         }
@@ -57,7 +76,7 @@ const AddDishPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!restaurant?.id) {
-            alert("Restaurant not found. Please log in.");
+            showAlert("Restaurant not found. Please log in.", "error");
             return;
         }
         try {
@@ -79,15 +98,21 @@ const AddDishPage = () => {
                 fileInputRef.current.value = '';
             }
 
-            alert('Dish added successfully!');
+            showAlert('Dish added successfully!', 'success');
         } catch (err) {
             console.error('Failed to add dish:', err);
-            alert('Failed to add dish. Please try again.');
+            showAlert('Failed to add dish. Please try again.', 'error');
         }
     };
 
     return (
         <>
+            <CustomAlert
+                show={alertConfig.show}
+                message={alertConfig.message}
+                type={alertConfig.type}
+                onClose={closeAlert}
+            />
             <Container className="py-4">
                 <Row className="justify-content-center">
                     <Col md={8}>

@@ -6,13 +6,33 @@ import { RestaurantType } from "../../services/restaurantApi"
 import styles from "./RestaurantMenu.module.css";
 import { useRef, useState } from "react";
 import { useGetDishesByRestaurantIdQuery, useDeleteDishMutation, useUpdateDishMutation } from "../../services/dishApi"
-
+import { AlertType } from "../../util/components/CustomAlert";
+import CustomAlert from "../../util/components/CustomAlert";
 const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/drxzjafvf/image/upload";
 
 const RestaurantMenu = () => {
     const restaurant = useSelector<RootState, RestaurantType | null>(
         (state) => state.auth.restaurant
     )
+
+    // Alert state
+    const [alertConfig, setAlertConfig] = useState({
+        show: false,
+        message: "",
+        type: "success" as AlertType,
+    });
+
+    const showAlert = (message: string, type: AlertType) => {
+        setAlertConfig({
+            show: true,
+            message,
+            type
+        });
+    };
+
+    const closeAlert = () => {
+        setAlertConfig(prev => ({ ...prev, show: false }));
+    };
 
     // Delete modal state
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -112,7 +132,7 @@ const RestaurantMenu = () => {
             console.log("Image uploaded:", result.secure_url);
         } catch (error) {
             console.error("Upload failed:", error);
-            alert("Image upload failed. Please try again.");
+            showAlert("Image upload failed. Please try again.", "error");
         } finally {
             setUploading(false);
         }
@@ -133,10 +153,10 @@ const RestaurantMenu = () => {
 
             setShowEditModal(false);
             refetch(); // Refresh the dish list
-            alert('Dish updated successfully!');
+            showAlert('Dish updated successfully!', 'success');
         } catch (error) {
             console.error("Failed to update dish:", error);
-            alert("Failed to update dish. Please try again.");
+            showAlert("Failed to update dish. Please try again.", "error");
         }
     };
 
@@ -151,9 +171,10 @@ const RestaurantMenu = () => {
                 await deleteDish(dishToDelete).unwrap();
                 setShowDeleteModal(false);
                 refetch(); // Refresh the dish list after deletion
+                showAlert('Dish deleted successfully!', 'success');
             } catch (error) {
                 console.error("Failed to delete dish:", error);
-                alert("Failed to delete dish. Please try again.");
+                showAlert("Failed to delete dish. Please try again.", "error");
             }
         }
     };
@@ -165,6 +186,13 @@ const RestaurantMenu = () => {
 
     return (
         <>
+            <CustomAlert
+                show={alertConfig.show}
+                message={alertConfig.message}
+                type={alertConfig.type}
+                onClose={closeAlert}
+            />
+
             <Container className="py-4">
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <h2 className="fw-bold">Restaurant Menu</h2>
