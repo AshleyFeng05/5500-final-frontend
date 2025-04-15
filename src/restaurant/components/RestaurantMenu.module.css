@@ -1,0 +1,60 @@
+.dishCard {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dishCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.imageContainer {
+  height: 180px;
+  overflow: hidden;
+}
+
+.dishImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.dishCard:hover .dishImage {
+  transform: scale(1.05);
+}
+
+.dishTitle {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.dishPrice {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #FF3008;
+}
+
+.dishDescription {
+  color: #6c6c6c;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  height: 4.5em;
+}
+
+.actionBtn {
+  width: 65px;
+  font-size: 0.85rem;
+}

@@ -7,7 +7,6 @@ import EditAccountModal from "./EditAccountModal";
 import styles from "./Account.module.css";
 
 const Account = () => {
-
     const restaurant = useSelector<RootState, RestaurantType | null>(
         (state) => state.auth.restaurant
     );
@@ -28,6 +27,7 @@ const Account = () => {
             console.error("Failed to update restaurant account:", error);
         }
     };
+
     const handleLogout = () => {
         dispatch(restaurantLogout())
     }
@@ -37,54 +37,58 @@ const Account = () => {
     }
 
     return (
-        <div className="container w-50">
-            <h2 className="text-center mb-4">Account Information</h2>
+        <div className={`container py-4 ${styles.container}`}>
+            <h2 className={`text-center ${styles.pageTitle}`}>Account Information</h2>
 
-            <div className={`card shadow-sm ${styles.accountCard}`}>
-                <div className={styles.bannerWrapper}>
-                    <img
-                        src={localData.imageUrl}
-                        alt="Restaurant"
-                        className={`img-fluid rounded-top ${styles.bannerImage}`}
-                    />
+            <div className="card shadow-sm rounded-4 border-0 overflow-hidden">
+                <div className="position-relative">
+                    {localData.imageUrl && (
+                        <img
+                            src={localData.imageUrl}
+                            alt="Restaurant"
+                            className={`img-fluid w-100 ${styles.bannerImage}`}
+                        />
+                    )}
+
                     {localData.logoUrl && (
                         <img
                             src={localData.logoUrl}
                             alt="Restaurant Logo"
-                            className={styles.logoImage}
+                            className={`position-absolute bg-white ${styles.logoImage}`}
                         />
                     )}
                 </div>
 
-                <div className={`card-body ${styles.cardBody} mt-4`}>
-                    <h2 className="card-title mb-4 fw-bold">{localData.name}</h2>
+                <div className="card-body pt-5 px-4 pb-4">
+                    <h2 className={styles.restaurantName}>{localData.name}</h2>
 
                     <div className="mb-3 d-flex">
-                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Email:</div>
+                        <div className={`text-secondary ${styles.infoLabel}`}>Email:</div>
                         <div>{localData.email}</div>
                     </div>
                     <div className="mb-3 d-flex">
-                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Phone:</div>
+                        <div className={`text-secondary ${styles.infoLabel}`}>Phone:</div>
                         <div>{localData.phone}</div>
                     </div>
                     <div className="mb-3 d-flex">
-                        <div className="fw-bold me-2" style={{ minWidth: "80px" }}>Address:</div>
+                        <div className={`text-secondary ${styles.infoLabel}`}>Address:</div>
                         <div>{localData.address}</div>
                     </div>
 
-
-                    <button
-                        className="btn btn-outline-danger mt-3 rounded-pill"
-                        onClick={() => setShowModal(true)}
-                    >
-                        Edit Account
-                    </button>
-                    <button
-                        className="btn btn-outline-secondary mt-3 rounded-pill ms-2"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
+                    <div className="mt-4">
+                        <button
+                            className={`btn btn-danger rounded-pill me-2 ${styles.actionButton}`}
+                            onClick={() => setShowModal(true)}
+                        >
+                            Edit Account
+                        </button>
+                        <button
+                            className={`btn btn-outline-danger rounded-pill ${styles.actionButton}`}
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
 

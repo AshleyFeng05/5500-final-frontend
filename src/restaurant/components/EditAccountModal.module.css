@@ -1,0 +1,61 @@
+.modalDialog {
+    max-width: 700px;
+}
+
+.modalHeader {
+    background-color: white;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modalFooter {
+    border-top: none;
+    padding-top: 0;
+}
+
+.formControl {
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
+}
+
+.previewContainer {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    text-align: center;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.bannerPreview {
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+}
+
+.logoPreviewContainer {
+    display: inline-block;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.logoPreview {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.cancelButton, .saveButton {
+    border-radius: 50rem;
+    padding: 0.5rem 1.5rem;
+}
+
+.saveButton {
+    min-width: 140px;
+}

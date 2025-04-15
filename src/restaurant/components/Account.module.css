@@ -1,29 +1,41 @@
-.accountCard {
-    position: relative;
+.container {
+  max-width: 700px;
 }
 
-.bannerWrapper {
-    position: relative;
+.pageTitle {
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
 }
 
 .bannerImage {
-    max-height: 200px;
-    object-fit: cover;
-    width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
 .logoImage {
-    position: absolute;
-    bottom: -30px;
-    left: 20px;
-    width: 80px;
-    height: auto;
-    border-radius: 50%;
-    border: 3px solid white;
-    object-fit: cover;
-    background-color: white;
+  bottom: -40px;
+  left: 24px;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  border: 4px solid white;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.cardBody {
-    padding-top: 50px; /* space for logo overlap */
+.restaurantName {
+  font-weight: bold;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.infoLabel {
+  font-weight: 500;
+  width: 80px;
+}
+
+.actionButton {
+  border-radius: 8px;
+  padding: 10px 20px;
 }

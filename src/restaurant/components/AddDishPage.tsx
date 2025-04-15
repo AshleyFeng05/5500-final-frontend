@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Form, Button, Container, Row, Col, Card, Image } from "react-bootstrap";
 import { useCreateDishMutation } from "../../services/dishApi";
 import { RootState } from "../../services/store";
@@ -21,6 +21,7 @@ const AddDishPage = () => {
         description: "",
         imageUrl: "",
     });
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -68,13 +69,15 @@ const AddDishPage = () => {
                 restaurantId: restaurant?.id ?? "",
             }).unwrap();
 
-            // Reset form after successful submission
             setFormData({
                 name: '',
                 price: '',
                 description: '',
                 imageUrl: '',
             });
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
 
             alert('Dish added successfully!');
         } catch (err) {
@@ -136,14 +139,24 @@ const AddDishPage = () => {
                                             </Form.Group>
 
                                             <Form.Group className="mb-3">
-                                                <Form.Label>Upload Dish Image</Form.Label>
+                                                <Form.Label className="fw-bold">Upload Dish Image</Form.Label>
                                                 <Form.Control
+                                                    ref={fileInputRef}
                                                     type="file"
                                                     accept="image/*"
                                                     onChange={handleImageUpload}
-                                                    required={!formData.imageUrl}
                                                 />
-                                                {uploading && <div className="text-secondary mt-1">Uploading image...</div>}
+                                                {uploading && (
+                                                    <div className="upload-indicator">
+                                                        <span className="spinner-border" role="status" aria-hidden="true"></span>
+                                                        <span>Uploading image...</span>
+                                                    </div>
+                                                )}
+                                                {formData.imageUrl && !uploading && (
+                                                    <div className="text-success mt-1">
+                                                        <small>✓ Image uploaded successfully</small>
+                                                    </div>
+                                                )}
                                             </Form.Group>
 
                                         </Col>

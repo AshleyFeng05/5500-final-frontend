@@ -1,9 +1,7 @@
-
 import { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { RootState } from "../../services/store";
+import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { RestaurantType } from "../../services/restaurantApi";
+import styles from "./EditAccountModal.module.css";
 
 const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/drxzjafvf/image/upload";
 
@@ -40,15 +38,21 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
         data.append("file", file);
         data.append("upload_preset", "restaurantbanner"); // Cloudinary preset
 
-        const res = await fetch(CLOUDINARY_URL, {
-            method: "POST",
-            body: data,
-        });
+        try {
+            const res = await fetch(CLOUDINARY_URL, {
+                method: "POST",
+                body: data,
+            });
 
-        const result = await res.json();
-        setFormData(prev => ({ ...prev, [type]: result.secure_url }));
-        console.log(result.secure_url);
-        type === "imageUrl" ? setUploadingBanner(false) : setUploadingLogo(false);
+            const result = await res.json();
+            setFormData(prev => ({ ...prev, [type]: result.secure_url }));
+            console.log(result.secure_url);
+        } catch (error) {
+            console.error("Upload failed:", error);
+            alert("Image upload failed. Please try again.");
+        } finally {
+            type === "imageUrl" ? setUploadingBanner(false) : setUploadingLogo(false);
+        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -58,65 +62,142 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
     };
 
     return (
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} centered dialogClassName={styles.modalDialog}>
             <Form onSubmit={handleSubmit}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Account Info</Modal.Title>
+                <Modal.Header closeButton className={styles.modalHeader}>
+                    <Modal.Title className="fw-bold">Edit Account Info</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control name="name" value={formData.name} onChange={handleChange} required />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control name="email" value={formData.email} onChange={handleChange} required />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control name="phone" value={formData.phone} onChange={handleChange} />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control name="address" value={formData.address} onChange={handleChange} />
-                    </Form.Group>
-                    {/* Upload Banner Image */}
-                    <Form.Group className="mb-3">
-                        <Form.Label>Upload Banner Image</Form.Label>
-                        <Form.Control type="file" accept="image/*" onChange={(e) => handleImageUpload(e, "imageUrl")} />
-                        {uploadingBanner && <div className="text-secondary mt-1">Uploading banner...</div>}
-                        {formData.imageUrl && (
-                            <img
-                                src={formData.imageUrl}
-                                alt="Banner Preview"
-                                className="img-fluid rounded mt-2"
-                                style={{ maxHeight: "200px" }}
-                            />
-                        )}
-                    </Form.Group>
+                <Modal.Body className="px-4 py-3">
+                    <Row>
+                        <Col md={formData.imageUrl ? 6 : 12}>
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Restaurant Name</Form.Label>
+                                <Form.Control
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className={styles.formControl}
+                                    required
+                                />
+                            </Form.Group>
 
-                    {/* Upload Logo Image */}
-                    <Form.Group className="mb-3">
-                        <Form.Label>Upload Logo Image</Form.Label>
-                        <Form.Control type="file" accept="image/*" onChange={(e) => handleImageUpload(e, "logoUrl")} />
-                        {uploadingLogo && <div className="text-secondary mt-1">Uploading logo...</div>}
-                        {formData.logoUrl && (
-                            <img
-                                src={formData.logoUrl}
-                                alt="Logo Preview"
-                                className="img-thumbnail mt-2"
-                                style={{ width: "60px", height: "60px", objectFit: "cover" }}
-                            />
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Email</Form.Label>
+                                <Form.Control
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className={styles.formControl}
+                                    required
+                                />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Phone</Form.Label>
+                                <Form.Control
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className={styles.formControl}
+                                />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Address</Form.Label>
+                                <Form.Control
+                                    name="address"
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className={styles.formControl}
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        {formData.imageUrl && (
+                            <Col md={6} className="d-flex flex-column align-items-center justify-content-center">
+                                <div className="text-center mb-2">Banner Preview</div>
+                                <div className={styles.previewContainer}>
+                                    <Image
+                                        src={formData.imageUrl}
+                                        alt="Banner Preview"
+                                        className={styles.bannerPreview}
+                                        onError={(e: any) => {
+                                            e.target.onerror = null;
+                                            e.target.src = '/placeholder-banner.jpg';
+                                        }}
+                                    />
+                                </div>
+                            </Col>
                         )}
-                    </Form.Group>
+                    </Row>
+
+                    <Row className="mt-3">
+                        <Col xs={12} md={formData.logoUrl ? 6 : 12}>
+                            {/* Upload Banner Image */}
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Upload Banner Image</Form.Label>
+                                <Form.Control
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => handleImageUpload(e, "imageUrl")}
+                                    className={styles.formControl}
+                                />
+                                {uploadingBanner && <div className="text-secondary mt-1">Uploading banner...</div>}
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={formData.logoUrl ? 6 : 12}>
+                            {/* Upload Logo Image */}
+                            <Form.Group className="mb-3">
+                                <Form.Label className="fw-bold">Upload Logo Image</Form.Label>
+                                <Form.Control
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => handleImageUpload(e, "logoUrl")}
+                                    className={styles.formControl}
+                                />
+                                {uploadingLogo && <div className="text-secondary mt-1">Uploading logo...</div>}
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    {formData.logoUrl && (
+                        <div className="text-center mt-3">
+                            <div className="text-center mb-2">Logo Preview</div>
+                            <div className={styles.logoPreviewContainer}>
+                                <Image
+                                    src={formData.logoUrl}
+                                    alt="Logo Preview"
+                                    className={styles.logoPreview}
+                                    onError={(e: any) => {
+                                        e.target.onerror = null;
+                                        e.target.src = '/placeholder-logo.jpg';
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" className="rounded-pill" onClick={handleClose}>Cancel</Button>
-                    <Button variant="danger" className="rounded-pill" type="submit">Save Changes</Button>
+                <Modal.Footer className={styles.modalFooter}>
+                    <Button
+                        variant="outline-secondary"
+                        className={styles.cancelButton}
+                        onClick={handleClose}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="danger"
+                        className={styles.saveButton}
+                        type="submit"
+                        disabled={uploadingBanner || uploadingLogo}
+                    >
+                        {(uploadingBanner || uploadingLogo) ? 'Uploading...' : 'Save Changes'}
+                    </Button>
                 </Modal.Footer>
             </Form>
         </Modal>
     );
-
 }
+
 export default EditAccountModal;

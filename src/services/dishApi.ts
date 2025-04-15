@@ -10,7 +10,7 @@ export type CreateDishType = {
     imageUrl: string;
     restaurantId: string;
 }
-export type DishType = CreateDishType & { id: String; }
+export type DishType = CreateDishType & { id: string; }
 
 
 export const dishApi = createApi({
