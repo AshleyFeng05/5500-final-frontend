@@ -6,8 +6,10 @@ const Dashboard = () => {
         <div>
             <Sidebar />
 
-            <h1>Dashboard</h1>
-            <p>Welcome to your dashboard!</p>
+            <div style={{ marginLeft: "60px" }}>
+                <h1>Dashboard</h1>
+                <p>Welcome to your dashboard!</p>
+            </div>
         </div>
     );
 };
