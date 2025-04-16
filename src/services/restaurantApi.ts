@@ -27,6 +27,7 @@ export type RestaurantSigninType = {
 export const restaurantApi = createApi({
     reducerPath: "restaurantApi",
     baseQuery: fetchBaseQuery({ baseUrl: `${BASE_API}/restaurants` }),
+    tagTypes: ["Restaurants"],
     endpoints: (builder) => ({
         login: builder.mutation<Partial<RestaurantType>, RestaurantSigninType>({
             query: (credential) => ({
@@ -49,6 +50,11 @@ export const restaurantApi = createApi({
                 body: updatedRestaurant,
             })
         }),
+        getAllRestaurants: builder.query<Partial<RestaurantType>[], void>({
+            query: () => "",
+            providesTags: ["Restaurants"],
+        }),
+
     }),
 });
 
@@ -56,4 +62,5 @@ export const {
     useLoginMutation,
     useSignupMutation,
     useUpdateRestaurantAccountMutation,
+    useGetAllRestaurantsQuery,
 } = restaurantApi;

@@ -1,49 +1,70 @@
 .sidebar {
-    width: 220px;
-    height: 100vh;
-    background-color: #fff;
-    border-right: 1px solid #ddd;
-    padding: 12px;
-    margin-top: 56px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow-y: auto;
+  height: 100vh;
+  width: 60px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border-right: 1px solid #ddd;
+  transition: width 0.3s ease;
+  overflow: auto;
+  padding-top: 60px;
+  white-space: nowrap;
+}
+
+.sidebar.expanded {
+  width: 220px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .navLink {
-    color: #333;
-    font-size: 16px;
-    padding: 4px 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    height: 32px;
-    text-decoration: none;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #333;
+  display: block;
+  border-radius: 5px;
+  margin: 0 8px 8px 8px;
+  transition: background-color 0.2s;
 }
 
 .navLink:hover {
-    background-color: #f5f5f5;
-    color: #000;
+  background-color: #f5f5f5;
 }
 
 .navLink.active {
-    background-color: #ffe6e6;
-    color: #D1311F;
+  background-color: #ffe6e6;
+  color: #D1311F;
+}
+
+.navLink.active .icon {
+  color: #D1311F;
+}
+
+.icon,
+.iconText {
+  vertical-align: middle;
 }
 
 .icon {
-    font-size: 18px;
+  margin-right: 24px;
+  width: 20px;
+  display: inline-block;
+  text-align: center;
 }
 
-.navItem {
-    margin-bottom: 10px;
+/* Separator line */
+.separator {
+  height: 1px;
+  background-color: #ccc;
+  margin: 12px 12px;
 }
 
-.hr {
-    border: none;
-    border-top: 1px solid #bbb;
-    width: 85%;
-    margin: 1rem auto;
+
+
+
+.main {
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
 }

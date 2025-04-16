@@ -1,93 +1,56 @@
 import { useState } from "react";
-
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./Sidebar.module.css";
-import {
-    faHome,
-    faShoppingBag,
-    faSearch,
-    faClipboardList,
-    faUser,
-    faDog,
-    faHeart,
-    faCapsules,
-    faGlassCheers,
-    faStore,
-} from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { faUtensils, faReceipt, faUser } from "@fortawesome/free-solid-svg-icons";
+import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
+    const [expanded, setExpanded] = useState(false);
     const location = useLocation();
-    const navigate = useNavigate();
 
-    const navItems = [
-        { name: "Home", icon: faHome, link: "" },
-        { name: "Grocery", icon: faStore, link: "/grocery" },
-        { name: "Retail", icon: faShoppingBag, link: "/retail" },
-        { name: "Convenience", icon: faSearch, link: "/convenience" },
-        { name: "Beauty", icon: faHeart, link: "/beauty" },
-        { name: "Pets", icon: faDog, link: "/pets" },
-        { name: "Health", icon: faCapsules, link: "/health" },
-        { name: "Party", icon: faGlassCheers, link: "/party" },
-    ]
-    const accountNavItems = [
-        { name: "Orders", icon: faClipboardList, link: "/orders" },
-        { name: "Account", icon: faUser, link: "/account" },
-    ]
+    const isActive = (path: string) => {
+        return (path === "/dashboard" && location.pathname === `/dashboard`) || (path !== "/dashboard" && location.pathname.endsWith(path));
+    };
 
-    const handleNavigation = (item: { name: String; link: string }) => {
-        const basePath = location.pathname.split("/")[1];
-        const fullPath = `/${basePath}${item.link}`;
-        navigate(fullPath);
+    const toggleSidebar = (expand: boolean) => {
+        setExpanded(expand);
     };
 
     return (
-        <div className={`d-flex flex-column ${styles.sidebar}`}>
-            <ul className="nav flex-column">
-                {navItems.map((item) => (
-                    <li key={item.name} className={`nav-item ${styles.navItem}`}>
-                        <a
-                            className={`${styles.navLink} ${(item.link === "" && location.pathname === `/${location.pathname.split("/")[1]}`) ||
-                                    (item.link !== "" && location.pathname.endsWith(item.link))
-                                    ? styles.active
-                                    : ""
-                                }`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleNavigation(item);
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={item.icon}
-                                className={`me-3 ${styles.icon}`}
-                            />
-                            {item.name}
-                        </a>
-                    </li>
-                ))}
+        <>
+            <div
+                className={`${styles.sidebar} ${expanded ? styles.expanded : ""} my-2`}
+                onMouseEnter={() => toggleSidebar(true)}
+                onMouseLeave={() => toggleSidebar(false)}
+            >
+                <Link
+                    to="/dashboard"
+                    className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}
+                >
+                    <FontAwesomeIcon icon={faUtensils} className={styles.icon} />
+                    <span className={styles.iconText}>Restaurants</span>
+                </Link>
 
-                <hr className={styles.hr} />
+                <div className={styles.separator}></div>
 
-                {accountNavItems.map((item) => (
-                    <li key={item.name} className={`nav-item ${styles.navItem}`}>
-                        <a
-                            className={`${styles.navLink} ${location.pathname.endsWith(item.link) ? styles.active : ""}`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleNavigation(item);
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={item.icon}
-                                className={`me-3 ${styles.icon}`}
-                            />
-                            {item.name}
-                        </a>
-                    </li>
-                ))}
+                <Link
+                    to="/dashboard/orders"
+                    className={`${styles.navLink} ${isActive('/dashboard/orders') ? styles.active : ''}`}
+                >
+                    <FontAwesomeIcon icon={faReceipt} className={styles.icon} />
+                    <span className={styles.iconText}>Orders</span>
+                </Link>
 
-            </ul>
-        </div>
+                <Link
+                    to="/dashboard/account"
+                    className={`${styles.navLink} ${isActive('/dashboard/account') ? styles.active : ''}`}
+                >
+                    <FontAwesomeIcon icon={faUser} className={styles.icon} />
+                    <span className={styles.iconText}>Account</span>
+                </Link>
+            </div>
+        </>
     );
 };
+
 export default Sidebar;
