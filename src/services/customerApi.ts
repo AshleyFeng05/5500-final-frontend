@@ -54,10 +54,35 @@ export const customerApi = createApi({
             }),
         }),
 
+        updateInfo: builder.mutation<Partial<CustomerType>, { customerId: string, customer: Partial<CustomerType> }>({
+            query: ({ customerId, customer }) => ({
+                url: `/updateAccount/${customerId}`,
+                method: "PUT",
+                body: customer,
+            })
+        }),
+
+        addPaymentInfo: builder.mutation<Partial<CustomerType>, { customerId: string, paymentInfo: PaymentInfoType }>({
+            query: ({ customerId, paymentInfo }) => ({
+                url: `/payments/${customerId}`,
+                method: "POST",
+                body: paymentInfo,
+            }),
+        }),
+        deletePaymentInfo: builder.mutation<Partial<CustomerType>, { customerId: string, paymentInfo: PaymentInfoType }>({
+            query: ({ customerId, paymentInfo }) => ({
+                url: `/payments/${customerId}`,
+                method: "DELETE",
+                body: paymentInfo,
+            }),
+        }),
     }),
 });
 
 export const {
     useLoginMutation,
     useSignupMutation,
+    useUpdateInfoMutation,
+    useAddPaymentInfoMutation,
+    useDeletePaymentInfoMutation,
 } = customerApi;

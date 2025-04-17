@@ -1,0 +1,19 @@
+.ratingContainer {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.rating {
+  font-weight: 600;
+}
+
+.ratingIcon {
+  color: #FFC107;
+  margin-left: 2px;
+  margin-right: 4px;
+}
+
+.reviews {
+  color: #777;
+}

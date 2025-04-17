@@ -1,0 +1,47 @@
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ff3008;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+
+.accountPage {
+  max-width: 900px;
+}
+
+.labelIcon {
+  margin-right: 8px;
+  min-width: 16px;
+}
+
+
+.labelWrapper {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.labelText {
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.valueContainer {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.staticValue {
+  padding: 0 12px;
+}

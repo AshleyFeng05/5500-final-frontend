@@ -18,6 +18,8 @@ export type RestaurantType = {
     email: string;
     phone: string;
     password: string;
+    rating: number;
+    numberOfRatings: number;
 }
 export type RestaurantSigninType = {
     email: string

@@ -62,7 +62,7 @@ const EditAccountModal = ({ show, handleClose, restaurant, onSave }: EditAccount
     };
 
     return (
-        <Modal show={show} onHide={handleClose} centered dialogClassName={styles.modalDialog}>
+        <Modal show={show} onHide={handleClose} centered className="modal-lg">
             <Form onSubmit={handleSubmit}>
                 <Modal.Header closeButton className={styles.modalHeader}>
                     <Modal.Title className="fw-bold">Edit Account Info</Modal.Title>

@@ -1,0 +1,38 @@
+.searchContainer {
+    max-width: 600px;
+    margin: 0 auto 24px;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-radius: 24px;
+    padding: 0 16px;
+    position: relative;
+    transition: background-color 0.2s, outline 0.2s;
+}
+
+.searchBar:focus-within {
+    outline: 2px solid black;
+    box-shadow: none;
+    background-color: #f0f0f0;
+}
+
+.searchIcon {
+    color: #717171;
+    margin-right: 12px;
+}
+
+.searchInput {
+    border: none;
+    background: none;
+    height: 48px;
+    width: 100%;
+}
+.searchInput:focus {
+  outline: none;
+}
+.searchInput::placeholder {
+  color: #717171;
+}

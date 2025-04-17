@@ -23,12 +23,6 @@ const Customer = () => {
     const isAuthenticated = useSelector(
         (state: RootState) => state.auth.customerAuthenticated
     );
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/dashboard");
-        }
-    }, [isAuthenticated])
 
     return (
         <>
@@ -48,7 +42,6 @@ const Customer = () => {
                     {/* Protected routes */}
                     <Route element={<ProtectedRoute />}>
                         <Route path="dashboard/*" element={<Dashboard />} />
-                        <Route path="orders" element={<div>Orders</div>} />
                     </Route>
 
                 </Routes>

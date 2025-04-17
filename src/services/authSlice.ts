@@ -22,6 +22,9 @@ const authSlice = createSlice({
             state.customer = null;
             localStorage.removeItem("auth:customer");
         },
+        setCustomer: (state, action) => {
+            state.customer = action.payload;
+        },
         restaurantLogin: (state, action) => {
             state.restaurantAuthenticated = true;
             state.restaurant = action.payload;
@@ -49,6 +52,7 @@ const authSlice = createSlice({
 export const {
     customerLogin,
     customerLogout,
+    setCustomer,
     restaurantLogin,
     restaurantLogout,
     setRestaurant,

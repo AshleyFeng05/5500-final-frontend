@@ -11,6 +11,7 @@
 .bannerImage {
   height: 180px;
   object-fit: cover;
+  max-height: 400px;
 }
 
 .logoImage {

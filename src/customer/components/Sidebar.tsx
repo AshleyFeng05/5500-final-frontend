@@ -19,7 +19,7 @@ const Sidebar = () => {
     return (
         <>
             <div
-                className={`${styles.sidebar} ${expanded ? styles.expanded : ""} my-2`}
+                className={`${styles.sidebar} ${expanded ? styles.expanded : ""}`}
                 onMouseEnter={() => toggleSidebar(true)}
                 onMouseLeave={() => toggleSidebar(false)}
             >
