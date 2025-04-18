@@ -9,7 +9,9 @@ const Sidebar = () => {
     const location = useLocation();
 
     const isActive = (path: string) => {
-        return (path === "/dashboard" && location.pathname === `/dashboard`) || (path !== "/dashboard" && location.pathname.endsWith(path));
+        return (path === "/dashboard" && location.pathname === `/dashboard`)
+            || (path === "/dashboard" && location.pathname.startsWith("/dashboard/restaurant"))
+            || (path !== "/dashboard" && location.pathname.endsWith(path));
     };
 
     const toggleSidebar = (expand: boolean) => {

@@ -91,3 +91,88 @@
     padding: 3rem 0;
     color: #666;
 }
+
+.dishCard {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.dishCard:hover {
+    transform: translateY(-4px);
+}
+.dishContent {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.dishImageWrapper {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+.dishImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.dishCard:hover .dishImage {
+    transform: scale(1.05);
+}
+.addButton {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border: none;
+    z-index: 2;
+}
+.plusIcon {
+    font-size: 22px;
+    line-height: 0;
+    position: relative;
+    top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #555;
+}
+.addButton:hover {
+    background-color: #f8f9fa;
+}
+.dishInfo {
+    padding: 16px;
+}
+.dishName {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+.dishMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    color: #555;
+}
+.dishPrice {
+    font-weight: 600;
+    font-size: 16px;
+}
+@media (max-width: 768px) {
+    .dishImageWrapper {
+        height: 160px;
+    }
+}

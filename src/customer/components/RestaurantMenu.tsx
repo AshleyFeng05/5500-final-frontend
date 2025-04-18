@@ -111,7 +111,39 @@ const RestaurantMenu = () => {
 
                 <div className={`py-4`}>
                     {filteredDishes.length > 0 ? (
-                        <>menu</>
+                        <Row className="gy-4">
+                            {filteredDishes.map((dish) => (
+                                <Col xs={12} sm={6} lg={4} xl={3} key={dish.id}>
+                                    <Card className={`${styles.dishCard} rounded-4 border-0`}>
+                                        <div className={styles.dishContent}>
+                                            <div className={styles.dishImageWrapper}>
+                                                <img
+                                                    src={dish.imageUrl}
+                                                    alt={dish.name}
+                                                    className={styles.dishImage}
+                                                />
+                                                <Button
+                                                    variant="light"
+                                                    className={`${styles.addButton} rounded-circle`}
+                                                    onClick={() => {
+                                                        //TODO
+                                                        console.log("Add to cart", dish);
+                                                    }}
+                                                >
+                                                    <span className={styles.plusIcon}>+</span>
+                                                </Button>
+                                            </div>
+                                            <div className={styles.dishInfo}>
+                                                <h3 className={styles.dishName}>{dish.name}</h3>
+                                                <div className={styles.dishMeta}>
+                                                    <span className={styles.dishPrice}>${dish.price?.toFixed(2)}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            ))}
+                        </Row>
                     ) : (
                         <div className={styles.emptyResults}>
                             <p>No dishes match your search for "{searchTerm}"</p>
