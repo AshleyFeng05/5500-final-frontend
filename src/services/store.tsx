@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "./authSlice";
+import cartReducer from "./cartSlice";
 
 import { customerApi } from "./customerApi";
 import { restaurantApi } from "./restaurantApi";
@@ -27,6 +28,7 @@ const loadAuth = () => {
 export const store = configureStore({
     reducer: {
         auth: authReducer,
+        cart: cartReducer,
         [customerApi.reducerPath]: customerApi.reducer,
         [restaurantApi.reducerPath]: restaurantApi.reducer,
         [dishApi.reducerPath]: dishApi.reducer,
