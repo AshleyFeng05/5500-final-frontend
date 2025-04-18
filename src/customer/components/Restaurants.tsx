@@ -61,7 +61,7 @@ const Restaurants: React.FC = () => {
                         <p>No restaurants found matching your search.</p>
                     </div>
                 ) : (
-                    <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+                    <Row xs={1} sm={2} lg={3} xxl={4} className="g-4">
                         {filteredRestaurants?.map((restaurant) => (
                             <Col key={restaurant.id}>
                                 <RestaurantCard

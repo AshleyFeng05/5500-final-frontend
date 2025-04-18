@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { RestaurantType } from '../../services/restaurantApi';
 import StarRating from './StarRating';

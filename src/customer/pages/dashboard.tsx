@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Restaurants from "../components/Restaurants";
 import AccountPage from "../components/AccountPage";
+import RestaurantMenu from "../components/RestaurantMenu";
 import { Navigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -12,11 +13,12 @@ const Dashboard = () => {
             <Sidebar />
 
             <div style={{ marginLeft: "60px" }}>
-                <Container className="py-4">
+                <Container>
                     <Routes>
                         <Route index element={<Restaurants />} />
                         <Route path="orders" element={<div>Orders</div>} />
                         <Route path="account" element={<AccountPage />} />
+                        <Route path="restaurant/:restaurantId" element={<RestaurantMenu />} />
                         <Route path="*" element={<Navigate to="/dashboard" replace />} />
                     </Routes>
                 </Container>

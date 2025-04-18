@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { get } from "http";
 const BASE_API = process.env.REACT_APP_BASE_API || "http://localhost:8080";
 
 
@@ -56,6 +57,9 @@ export const restaurantApi = createApi({
             query: () => "",
             providesTags: ["Restaurants"],
         }),
+        getRestaurantById: builder.query<Partial<RestaurantType>, string>({
+            query: (id) => `/${id}`,
+        }),
 
     }),
 });
@@ -65,4 +69,5 @@ export const {
     useSignupMutation,
     useUpdateRestaurantAccountMutation,
     useGetAllRestaurantsQuery,
+    useGetRestaurantByIdQuery,
 } = restaurantApi;
