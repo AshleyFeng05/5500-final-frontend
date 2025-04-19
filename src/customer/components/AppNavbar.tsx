@@ -1,9 +1,15 @@
 import { useSelector } from 'react-redux';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { RootState } from '../../services/store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 import UserAuthModal from './UserAuthModal';
+import CartOffcanvas from './CartOffcanvas';
 import { ReactComponent as Logo } from '../img/logo.svg';
+
+import { selectCartTotalItems } from '../../services/cartSlice';
 
 
 interface AppNavbarProps {
@@ -17,6 +23,11 @@ interface AppNavbarProps {
 const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }: AppNavbarProps) => {
 
     const { customerAuthenticated, customer } = useSelector((state: RootState) => state.auth);
+    const totalCartItems = useSelector(selectCartTotalItems);
+
+    const [showCart, setShowCart] = useState(false);
+    const handleShowCart = () => setShowCart(true);
+    const handleCloseCart = () => setShowCart(false);
 
     return (
         <Navbar bg="light" expand="md" className="shadow-sm" fixed="top">
@@ -32,23 +43,38 @@ const AppNavbar = ({ showAuthModal, onOpenAuthModal, onHideAuthModal, authMode }
                 </Navbar.Brand>
 
                 {customerAuthenticated && customer ? (
-                    <></>
+                    <>
+                        <Nav className="ms-auto">
+                            <Button
+                                variant="danger"
+                                className="position-relative rounded-pill d-flex align-items-center justify-content-center"
+                                onClick={handleShowCart}
+                            >
+                                <FontAwesomeIcon icon={faCartShopping} className="me-2" />
+                                <span className="fw-bold text-white" style={{ fontSize: '0.9rem' }}>
+                                    {totalCartItems}
+                                </span>
+                            </Button>
+                        </Nav>
+                        <CartOffcanvas
+                            show={showCart}
+                            onHide={handleCloseCart}
+                        />
+                    </>
                 ) : (
                     <>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                            <Nav className="gap-2">
-                                <Button variant="danger"
-                                    className="rounded-pill fw-bold"
-                                    onClick={() => onOpenAuthModal("signIn")}
-                                >Sign In</Button>
-                                <Button variant="light"
-                                    className="rounded-pill fw-bold"
-                                    onClick={() => onOpenAuthModal("signUp")}
-                                >Sign Up</Button>
-                            </Nav>
-                        </Navbar.Collapse>
+                        <Nav className="gap-2">
+                            <Button variant="danger"
+                                className="rounded-pill fw-bold"
+                                onClick={() => onOpenAuthModal("signIn")}
+                            >Sign In</Button>
+                            <Button variant="light"
+                                className="rounded-pill fw-bold"
+                                onClick={() => onOpenAuthModal("signUp")}
+                            >Sign Up</Button>
+                        </Nav>
+
                         <UserAuthModal
                             show={showAuthModal}
                             onHide={onHideAuthModal}

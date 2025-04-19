@@ -5,11 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import StarRating from "../../util/components/StarRating";
+import { DishType } from "../../services/dishApi";
 
 import { useGetDishesByRestaurantIdQuery } from "../../services/dishApi";
+import { addToCart } from "../../services/cartSlice";
 import { useGetRestaurantByIdQuery } from "../../services/restaurantApi";
 
 import styles from "./RestaurantMenu.module.css";
+import MenuItemModal from "./MenuItemModal";
 
 const RestaurantMenu = () => {
     const { restaurantId } = useParams<{ restaurantId: string }>();
@@ -20,6 +23,18 @@ const RestaurantMenu = () => {
     const { data: dishes, isLoading: isLoadingDishes, isError: isErrorDishes } = useGetDishesByRestaurantIdQuery(restaurantId || "");
 
     const [searchTerm, setSearchTerm] = useState("");
+
+    const [selectedDish, setSelectedDish] = useState<DishType | null>(null);
+    const [showDishModal, setDhowDishModal] = useState(false);
+
+    const handleOpenMenuItemModal = (dish: DishType) => {
+        setSelectedDish(dish);
+        setDhowDishModal(true);
+    };
+    const handleCloseMenuItemModal = () => {
+        setSelectedDish(null);
+        setDhowDishModal(false);
+    };
 
     if (!restaurantId) {
         return <div>Missing Restaurant ID</div>;
@@ -114,7 +129,7 @@ const RestaurantMenu = () => {
                         <Row className="gy-4">
                             {filteredDishes.map((dish) => (
                                 <Col xs={12} sm={6} lg={4} xl={3} key={dish.id}>
-                                    <Card className={`${styles.dishCard} rounded-4 border-0`}>
+                                    <Card className={`${styles.dishCard} rounded-4 border-0`} onClick={() => handleOpenMenuItemModal(dish)} role="button">
                                         <div className={styles.dishContent}>
                                             <div className={styles.dishImageWrapper}>
                                                 <img
@@ -126,8 +141,7 @@ const RestaurantMenu = () => {
                                                     variant="light"
                                                     className={`${styles.addButton} rounded-circle`}
                                                     onClick={() => {
-                                                        //TODO
-                                                        console.log("Add to cart", dish);
+                                                        dispatch(addToCart({ dish, quantity: 1 }))
                                                     }}
                                                 >
                                                     <span className={styles.plusIcon}>+</span>
@@ -135,6 +149,7 @@ const RestaurantMenu = () => {
                                             </div>
                                             <div className={styles.dishInfo}>
                                                 <h3 className={styles.dishName}>{dish.name}</h3>
+                                                <p className={styles.dishDescription}>{dish.description}</p>
                                                 <div className={styles.dishMeta}>
                                                     <span className={styles.dishPrice}>${dish.price?.toFixed(2)}</span>
                                                 </div>
@@ -157,6 +172,11 @@ const RestaurantMenu = () => {
 
             </Container>
 
+            <MenuItemModal
+                show={showDishModal}
+                onHide={handleCloseMenuItemModal}
+                menuItem={selectedDish}
+            />
 
         </div>
     );

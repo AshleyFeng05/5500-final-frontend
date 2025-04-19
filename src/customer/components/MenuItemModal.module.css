@@ -1,0 +1,83 @@
+/* .modayBody {
+    padding: 1rem 1.5rem;
+} */
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.dishImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dishInfo {
+    margin-bottom: 1.5rem;
+}
+.dishPrice {
+    font-weight: 600;
+}
+.dishDescription {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.quantityContainer {
+    display: flex;
+    align-items: center;
+}
+
+.quantityButton {
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.quantityButton:hover:not(:disabled) {
+    background-color: #e9ecef;
+    color: #212529;
+}
+
+.quantityButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantityInput {
+    width: 40px;
+    text-align: center;
+    border: none;
+    font-weight: 500;
+    padding: 0;
+    margin: 0 8px;
+    font-size: 16px;
+}
+
+.quantityInput:focus {
+    box-shadow: none;
+}
+

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DishType } from "./dishApi";
+import { RootState } from "./store";
 
 export type CartItemType = {
     dish: DishType;
@@ -79,12 +80,13 @@ const cartSlice = createSlice({
 
 export const { addToCart, updateQuantity, removeFromCart, clearCart } = cartSlice.actions;
 
-export const selectCartTotalItems = (state: { cart: CartState }) => {
+export const selectCartTotalItems = (state: RootState) => {
     return state.cart.items.reduce((total, item) => total + item.quantity, 0);
 };
-export const selectCartTotalPrice = (state: { cart: CartState }) => {
-    state.cart.items.reduce((total, item) => total + item.dish.price * item.quantity, 0);
-}
+
+export const selectCartTotalPrice = (state: RootState) => {
+    return state.cart.items.reduce((total, item) => total + item.dish.price * item.quantity, 0);
+};
 
 
 export default cartSlice.reducer;

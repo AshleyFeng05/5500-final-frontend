@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCustomer } from '../../services/authSlice';
+import { setCustomer, customerLogout } from '../../services/authSlice';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,7 +12,8 @@ import {
     faCreditCard,
     faSave,
     faTimes,
-    faTrash
+    faTrash,
+    faSignOutAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../services/store';
@@ -439,6 +440,24 @@ const AccountPage: React.FC = () => {
                             <p className="text-muted mb-3">No payment methods added yet.</p>
                         </div>
                     )}
+                </Card.Body>
+            </Card>
+            <Card className={`shadow-sm rounded-3 ${styles.infoCard}`}>
+                <Card.Body className="p-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 className="fs-5 fw-bold mb-1">Session</h3>
+                            <p className="text-muted mb-0">Log out from your account</p>
+                        </div>
+                        <Button
+                            variant="outline-danger"
+                            className="rounded-pill px-4 py-2"
+                            onClick={() => dispatch(customerLogout())}
+                        >
+                            <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />
+                            Logout
+                        </Button>
+                    </div>
                 </Card.Body>
             </Card>
         </Container>
