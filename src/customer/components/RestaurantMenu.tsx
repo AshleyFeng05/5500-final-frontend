@@ -140,7 +140,8 @@ const RestaurantMenu = () => {
                                                 <Button
                                                     variant="light"
                                                     className={`${styles.addButton} rounded-circle`}
-                                                    onClick={() => {
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
                                                         dispatch(addToCart({ dish, quantity: 1 }))
                                                     }}
                                                 >

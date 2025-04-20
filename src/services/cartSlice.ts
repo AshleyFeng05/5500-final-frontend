@@ -10,11 +10,21 @@ export type CartItemType = {
 export type CartState = {
     restaurantId: string | null;
     items: CartItemType[];
+    cartConflict: {
+        show: boolean;
+        newDish: DishType | null;
+        newQuantity: number;
+    }
 }
 
 export const initialCartState: CartState = {
     restaurantId: null,
     items: [],
+    cartConflict: {
+        show: false,
+        newDish: null,
+        newQuantity: 0
+    }
 }
 
 const cartSlice = createSlice({
@@ -23,6 +33,15 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action: PayloadAction<{ dish: DishType; quantity: number }>) => {
             const { dish, quantity } = action.payload;
+
+            if (state.restaurantId && state.restaurantId !== dish.restaurantId) {
+                state.cartConflict = {
+                    show: true,
+                    newDish: dish,
+                    newQuantity: quantity
+                };
+                return;
+            }
 
             if (!state.restaurantId) {
                 state.restaurantId = dish.restaurantId;
@@ -35,6 +54,29 @@ const cartSlice = createSlice({
             } else {
                 state.items.push({ dish, quantity });
             }
+        },
+
+        replaceCartWithNewDish: (state) => {
+            if (state.cartConflict.newDish && state.cartConflict.newQuantity > 0) {
+                state.items = [{
+                    dish: state.cartConflict.newDish,
+                    quantity: state.cartConflict.newQuantity
+                }];
+                state.restaurantId = state.cartConflict.newDish.restaurantId;
+                state.cartConflict = {
+                    show: false,
+                    newDish: null,
+                    newQuantity: 0
+                };
+            }
+        },
+
+        cancelCartConflict: (state) => {
+            state.cartConflict = {
+                show: false,
+                newDish: null,
+                newQuantity: 0
+            };
         },
 
         updateQuantity: (state, action: PayloadAction<{ dishId: string; quantity: number }>) => {
@@ -74,11 +116,24 @@ const cartSlice = createSlice({
         clearCart: (state) => {
             state.items = [];
             state.restaurantId = null;
+            state.cartConflict = {
+                show: false,
+                newDish: null,
+                newQuantity: 0
+            };
         },
+
     }
 });
 
-export const { addToCart, updateQuantity, removeFromCart, clearCart } = cartSlice.actions;
+export const {
+    addToCart,
+    updateQuantity,
+    removeFromCart,
+    clearCart,
+    replaceCartWithNewDish,
+    cancelCartConflict
+} = cartSlice.actions;
 
 export const selectCartTotalItems = (state: RootState) => {
     return state.cart.items.reduce((total, item) => total + item.quantity, 0);
@@ -88,5 +143,7 @@ export const selectCartTotalPrice = (state: RootState) => {
     return state.cart.items.reduce((total, item) => total + item.dish.price * item.quantity, 0);
 };
 
-
+export const selectCartConflict = (state: RootState) => {
+    return state.cart.cartConflict;
+}
 export default cartSlice.reducer;

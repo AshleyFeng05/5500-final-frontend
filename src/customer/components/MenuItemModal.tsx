@@ -5,7 +5,8 @@ import { addToCart } from "../../services/cartSlice";
 import { Modal, Button, Image, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import styles from "./MenuItemModal.module.css";
+import "./MenuItemModal.css";
+
 
 interface MenuItemModalProps {
     show: boolean;
@@ -51,32 +52,32 @@ const MenuItemModal: React.FC<MenuItemModalProps> = ({ show, onHide, menuItem })
 
             <Modal.Body className="py-0">
 
-                <div className={styles.dishInfo}>
+                <div className="menu-item-modal-dish-info">
                     <h3 className={`fw-bold mb-2`}>{menuItem.name}</h3>
 
-                    <div className={`${styles.dishPrice} mb-2`}>${menuItem.price.toFixed(2)}</div>
+                    <div className={`menu-item-modal-dish-price mb-2`}>${menuItem.price.toFixed(2)}</div>
                     {menuItem.description && (
-                        <div className={styles.dishDescription}>
+                        <div className="menu-item-modal-dish-description">
                             {menuItem.description}
                         </div>
                     )}
 
                 </div>
-                <div className={styles.imageContainer}>
+                <div className="menu-item-modal-image-container">
                     <Image
                         src={menuItem.imageUrl}
                         alt={menuItem.name}
-                        className={styles.dishImage}
+                        className="menu-item-modal-dish-image"
                     />
                 </div>
             </Modal.Body>
-            <Modal.Footer className={styles.modalFooter}>
-                <div className={styles.quantityContainer}>
+            <Modal.Footer className={`menu-item-modal-footer d-flex justify-content-between align-items-center`}>
+                <div className={`d-flex align-items-center`}>
                     <Button
                         variant="link"
                         onClick={handleDecreaseQuantity}
                         disabled={quantity <= 1}
-                        className={styles.quantityButton}
+                        className="menu-item-modal-quantity-buttons"
                     >
                         <FontAwesomeIcon icon={faMinus} />
                     </Button>
@@ -84,20 +85,20 @@ const MenuItemModal: React.FC<MenuItemModalProps> = ({ show, onHide, menuItem })
                         value={quantity}
                         type="text"
                         min="1"
-                        className={styles.quantityInput}
+                        className="menu-item-modal-quantity-input"
                         onChange={(e) => setQuantity(Number(e.target.value) || 1)}
                     />
                     <Button
                         variant="link"
                         onClick={handleIncreaseQuantity}
-                        className={styles.quantityButton}
+                        className="menu-item-modal-quantity-buttons"
                     >
                         <FontAwesomeIcon icon={faPlus} />
                     </Button>
                 </div>
                 <Button
                     variant="danger"
-                    className={`rounded-pill ${styles.addToCartButton}`}
+                    className={`rounded-pill`}
                     onClick={handleAddToCart}
                 >
                     Add to cart - ${(menuItem.price * quantity).toFixed(2)}

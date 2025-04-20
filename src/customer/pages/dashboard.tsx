@@ -5,12 +5,14 @@ import Restaurants from "../components/Restaurants";
 import AccountPage from "../components/AccountPage";
 import RestaurantMenu from "../components/RestaurantMenu";
 import { Navigate } from "react-router-dom";
+import CartConflictModal from "../components/CartConflictModal";
 
 const Dashboard = () => {
 
     return (
         <div>
             <Sidebar />
+            <CartConflictModal />
 
             <div style={{ marginLeft: "60px" }}>
                 <Container>

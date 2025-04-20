@@ -270,7 +270,7 @@ const AddPaymentModal: React.FC<AddPaymentModalProps> = ({
                 <Modal.Footer className={styles.modalFooter}>
                     <Button
                         variant="outline-secondary"
-                        className={styles.cancelButton}
+                        className={`${styles.cancelButton} rounded-pill`}
                         onClick={handleModalHide}
                         disabled={isLoading}
                     >
@@ -278,7 +278,7 @@ const AddPaymentModal: React.FC<AddPaymentModalProps> = ({
                     </Button>
                     <Button
                         variant="danger"
-                        className={styles.saveButton}
+                        className={`${styles.saveButton} rounded-pill`}
                         type="submit"
                         disabled={isLoading}
                     >
