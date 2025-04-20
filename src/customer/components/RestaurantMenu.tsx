@@ -59,8 +59,22 @@ const RestaurantMenu = () => {
     if (!restaurant) {
         return <div>Restaurant not found</div>;
     }
-    if (!dishes) {
-        return <div>No dishes found for this restaurant</div>;
+    if (dishes && dishes.length === 0) {
+        return (
+            <Container className="py-5 text-center">
+                <div className={styles.emptyResults}>
+                    <h3 className="text-muted mb-3">No dishes available</h3>
+                    <p className="mb-4">This restaurant hasn't added any dishes to their menu yet.</p>
+                    <Button
+                        variant="outline-danger"
+                        onClick={() => window.history.back()}
+                        className="rounded-pill px-4"
+                    >
+                        Go Back
+                    </Button>
+                </div>
+            </Container>
+        );
     }
     const filteredDishes = dishes?.filter((dish) =>
         dish.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -124,10 +138,12 @@ const RestaurantMenu = () => {
                     </Col>
                 </Row>
 
+
+
                 <div className={`py-4`}>
-                    {filteredDishes.length > 0 ? (
+                    {(filteredDishes ?? []).length > 0 ? (
                         <Row className="gy-4">
-                            {filteredDishes.map((dish) => (
+                            {(filteredDishes ?? []).map((dish) => (
                                 <Col xs={12} sm={6} lg={4} xl={3} key={dish.id}>
                                     <Card className={`${styles.dishCard} rounded-4 border-0`} onClick={() => handleOpenMenuItemModal(dish)} role="button">
                                         <div className={styles.dishContent}>

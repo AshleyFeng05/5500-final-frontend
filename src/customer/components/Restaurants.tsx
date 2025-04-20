@@ -35,8 +35,8 @@ const Restaurants: React.FC = () => {
     }
 
     return (
-        <>
-            <div className="mb-4 d-flex justify-content-between align-items-center">
+        <div className="py-4">
+            <div className="mb-2 d-flex justify-content-between align-items-center">
                 <h2 className="mb-4 fw-bold">Restaurants Near You</h2>
             </div>
 
@@ -72,7 +72,7 @@ const Restaurants: React.FC = () => {
                     </Row>
                 )
             }
-        </ >
+        </div>
     );
 };
 

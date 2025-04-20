@@ -74,7 +74,6 @@ const MenuItemModal: React.FC<MenuItemModalProps> = ({ show, onHide, menuItem })
             <Modal.Footer className={`menu-item-modal-footer d-flex justify-content-between align-items-center`}>
                 <div className={`d-flex align-items-center`}>
                     <Button
-                        variant="link"
                         onClick={handleDecreaseQuantity}
                         disabled={quantity <= 1}
                         className="menu-item-modal-quantity-buttons"
@@ -89,7 +88,6 @@ const MenuItemModal: React.FC<MenuItemModalProps> = ({ show, onHide, menuItem })
                         onChange={(e) => setQuantity(Number(e.target.value) || 1)}
                     />
                     <Button
-                        variant="link"
                         onClick={handleIncreaseQuantity}
                         className="menu-item-modal-quantity-buttons"
                     >
