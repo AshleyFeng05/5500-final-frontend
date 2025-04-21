@@ -28,7 +28,7 @@ const CartOffcanvas = ({ show, onHide }: CartOffcanvasProps) => {
     };
     const handleCheckout = () => {
         onHide();
-        navigate("/checkout");
+        navigate("/dashboard/checkout");
     }
 
     if (cart.items.length === 0) {

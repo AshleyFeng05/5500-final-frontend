@@ -1,0 +1,61 @@
+.orders-page {
+  padding-bottom: 60px;
+}
+
+.order-page h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+
+.order-card {
+  transition: all 0.2s;
+  border-radius: 12px;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.order-status-col {
+  background-color: #f8f9fa;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.past-order {
+  opacity: 0.9;
+}
+
+
+.status-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.status-description {
+  max-width: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.driver-info {
+  background-color: #f0f9ff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .order-status-col {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    padding: 2rem 1rem !important;
+  }
+}

@@ -6,7 +6,6 @@ const BASE_API = process.env.REACT_APP_BASE_API || "http://localhost:8080";
 
 export type OrderStatus =
     | 'PLACED'
-    | 'CONFIRMED'
     | 'PREPARING'
     | 'READY'
     | 'ON_THE_WAY'
@@ -15,18 +14,25 @@ export type OrderStatus =
 
 export type OrderItemType = {
     dishId: string;
+    dishName: string;
     quantity: number;
 }
 
 export type OrderType = {
     id: string;
     customerId: string;
+    deliveryAddress: string;
+
     restaurantId: string;
-    deliveryAdress: string;
+    restaurantName: string;
     restaurantAddress: string;
+
     dasherId?: string;
+    dasherName?: string;
+
     orderTime: Date;
     status: OrderStatus;
+    totalPrice: number;
     items: OrderItemType[];
     payment: PaymentInfoType;
 }
@@ -45,5 +51,25 @@ export const orderApi = createApi({
             invalidatesTags: ['Orders'],
         }),
 
+        getOrderById: builder.query<OrderType, string>({
+            query: (id) => `/${id}`,
+            providesTags: (result, error, id) => [{ type: "Orders", id }],
+        }),
+
+        getCustomerOrders: builder.query<OrderType[], string>({
+            query: (customerId) => ({
+                url: `/customer/${customerId}`,
+                method: 'GET',
+            }),
+            providesTags: ['Orders'],
+        }),
+
+
     }))
 })
+
+export const {
+    useCreateOrderMutation,
+    useGetOrderByIdQuery,
+    useGetCustomerOrdersQuery,
+} = orderApi;

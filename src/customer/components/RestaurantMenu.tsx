@@ -113,7 +113,7 @@ const RestaurantMenu = () => {
                             </div>
                             <div className={`${styles.restaurantDetails} d-flex align-items-center`}>
                                 <StarRating
-                                    rating={restaurant.rating || 0}
+                                    rating={restaurant.rating || 4.5}
                                     numberOfRatings={restaurant.numberOfRatings}
                                 />
                                 <span className={styles.dot}>•</span>

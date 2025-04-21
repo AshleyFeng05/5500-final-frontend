@@ -1,6 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { CustomerType } from "./customerApi";
+import { RestaurantType } from "./restaurantApi";
 
-export const defaultAuthState = {
+interface AuthState {
+    customerAuthenticated: boolean;
+    customer: CustomerType | null;
+    restaurantAuthenticated: boolean;
+    restaurant: RestaurantType | null;
+    dasherAuthenticated: boolean;
+    dasher: any | null;
+}
+
+export const defaultAuthState: AuthState = {
     customerAuthenticated: false,
     customer: null,
     restaurantAuthenticated: false,
