@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Modal, Container, Form, Button, Alert } from "react-bootstrap";
-import { useLoginMutation } from "../../services/restaurantApi";
-import { restaurantLogin } from "../../services/authSlice";
+import { useLoginMutation } from "../../services/dasherApi";
+import { dasherLogin } from "../../services/authSlice";
 
 interface SigninModalProps {
     show: boolean;
@@ -18,6 +18,7 @@ const SigninModal = ({ show, onHide }: SigninModalProps) => {
         email: "",
         password: "",
     });
+
     const handleSignInChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setSignInData((prevData) => ({
@@ -34,11 +35,11 @@ const SigninModal = ({ show, onHide }: SigninModalProps) => {
         event.preventDefault();
         closeAlert();
         try {
-            const restaurant = await login(signInData).unwrap();
-            console.log(restaurant);
-            dispatch(restaurantLogin(restaurant));
+            const dasher = await login(signInData).unwrap();
+            console.log(dasher);
+            dispatch(dasherLogin(dasher));
             onHide();
-            navigate("/restaurant/dashboard");
+            navigate("/dasher/dashboard");
         } catch (error: any) {
             console.error("Error during login:", error);
             setAlertMessage(error?.data?.message || "An error occurred during login.");
@@ -49,7 +50,7 @@ const SigninModal = ({ show, onHide }: SigninModalProps) => {
         <>
             <Modal show={show} onHide={onHide}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="fw-bold">Restaurant Sign In</Modal.Title>
+                    <Modal.Title className="fw-bold">Dasher Sign In</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="pb-4">
                     <div className="modal-body p-0">
@@ -91,7 +92,7 @@ const SigninModal = ({ show, onHide }: SigninModalProps) => {
                         </Container>
                     </div>
                 </Modal.Body>
-            </Modal >
+            </Modal>
         </>
     )
 }

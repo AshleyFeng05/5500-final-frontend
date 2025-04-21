@@ -1,43 +1,55 @@
 import { Container, Row, Col } from "react-bootstrap";
-
-
 import SpotlightImage from "../img/dx_spotlight.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faBriefcase, faClock } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "./home.module.css";
-
-
 import DasherFooter from "../components/DasherFooter";
-
+import SignupForm from "../components/SignupForm"; // Import the SignupForm component
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
+import { useEffect } from "react";
 
 const DasherHome = () => {
+
+    const navigate = useNavigate();
+    const dasherAuthenticated = useSelector(
+        (state: RootState) => state.auth.dasherAuthenticated
+    );
+
+    useEffect(() => {
+        if (dasherAuthenticated) {
+            navigate("/dasher/dashboard");
+        }
+    }, [dasherAuthenticated, navigate]);
+
     return (
         <>
-
-            <div className={`${styles.header_section} text-light`}>
-                <Container>
-                    <div className={styles.row_wrapper}>
-                        <Row className="align-items-center">
-                            <Col md={6} className="text-center text-md-start mb-4 mb-md-0">
-                                <h1 className="fw-bold">Earn with the best</h1>
-                                <p className="mt-3">Deliver with DashDoor and get more opportunities to earn.</p>
-                            </Col>
-
-                            <Col md={6} className="text-center d-flex align-items-end">
-                                <img
-                                    src={SpotlightImage}
-                                    alt="Dasher Spotlight"
-                                    className="img-fluid"
-                                />
-                            </Col>
-                        </Row>
+            <div className={`container-fluid me-0 ${styles.dasherHome}`}>
+                <div className="row">
+                    <div className={`col-md-6 d-flex flex-column justify-content-center ${styles.leftSection}`}>
+                        <h1 className={`mb-4 ${styles.title}`}>
+                            Earn with the best
+                        </h1>
+                        <p>Deliver with DashDoor and get more opportunities to earn.</p>
+                        <div className={styles.formContainer}>
+                            <SignupForm />
+                        </div>
                     </div>
-                </Container>
-            </div >
 
+                    <div className={`col-md-6 me-0 p-0 ${styles.rightSection}`}>
+                        <div className={styles.imageContainer}>
+                            <img
+                                src={SpotlightImage}
+                                alt="Dasher Spotlight"
+                                className={styles.image}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <Container className={`${styles.features_section} my-5 py-5`}>
+            <Container className={`${styles.features_section} mt-5 py-5`}>
                 <Row>
                     <Col md={4} sm={12} className={`mb-4 text-center`}>
                         <FontAwesomeIcon icon={faUsers} className={`${styles.feature_icon} text-danger mb-3`} />
@@ -71,9 +83,9 @@ const DasherHome = () => {
                 </Row>
             </Container>
 
-
             <DasherFooter />
         </>
-    )
-}
+    );
+};
+
 export default DasherHome;

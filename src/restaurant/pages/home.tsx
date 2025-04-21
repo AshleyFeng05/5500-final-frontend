@@ -8,7 +8,6 @@ import styles from "./home.module.css";
 import SignupForm from "../components/SignupForm";
 
 import homeBgImg from "../img/homeBgImg.jpg";
-import { Root } from "react-dom/client";
 
 
 

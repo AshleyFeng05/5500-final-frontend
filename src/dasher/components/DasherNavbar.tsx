@@ -1,7 +1,17 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { ReactComponent as Logo } from "../../customer/img/logo.svg";
+import { useState } from "react";
+import SigninModal from "./SigninModal";
+import { RootState } from "../../services/store";
+import { useSelector } from "react-redux";
 
 const DasherNavbar = () => {
+
+    const [showSignIn, setShowSignIn] = useState(false);
+    const isAuthenticated = useSelector(
+        (state: RootState) => state.auth.dasherAuthenticated
+    )
+
 
     return (
         <>
@@ -19,14 +29,23 @@ const DasherNavbar = () => {
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-                    <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                        <Nav className="gap-2">
-                            <Button variant="danger"
-                                className="rounded-pill fw-bold"
+                    {!isAuthenticated && (
+                        <>
+                            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                                <Nav className="gap-2">
+                                    <Button variant="danger"
+                                        className="rounded-pill fw-bold"
+                                        onClick={() => setShowSignIn(true)}
+                                    >Sign In</Button>
+                                </Nav>
+                            </Navbar.Collapse>
+                            <SigninModal
+                                show={showSignIn}
+                                onHide={() => setShowSignIn(false)}
+                            />
+                        </>
+                    )}
 
-                            >Sign In</Button>
-                        </Nav>
-                    </Navbar.Collapse>
 
                 </Container>
             </Navbar>
