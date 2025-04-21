@@ -12,6 +12,11 @@ export type OrderStatus =
     | 'DELIVERED'
     | 'CANCELLED';
 
+export type RestaurantAllowedOrderStatus =
+    | 'PREPARING'
+    | 'READY'
+    | 'CANCELLED';
+
 export type OrderItemType = {
     dishId: string;
     dishName: string;
@@ -64,6 +69,30 @@ export const orderApi = createApi({
             providesTags: ['Orders'],
         }),
 
+        getRestaurantActiveOrders: builder.query<OrderType[], string>({
+            query: (restaurantId) => ({
+                url: `/restaurant/${restaurantId}/active`,
+                method: 'GET',
+            }),
+            providesTags: ['Orders'],
+        }),
+
+        getRestaurantCompletedOrders: builder.query<OrderType[], string>({
+            query: (restaurantId) => ({
+                url: `/restaurant/${restaurantId}/completed`,
+                method: 'GET',
+            }),
+            providesTags: ['Orders'],
+        }),
+
+        restaurantUpdateOrderStatus: builder.mutation<OrderType, { orderId: string; status: OrderStatus; restaurantId: string }>({
+            query: ({ orderId, status, restaurantId }) => ({
+                url: `/status/restaurant/${orderId}`,
+                method: 'PUT',
+                body: { status, restaurantId },
+            }),
+            invalidatesTags: (result, error, { orderId }) => [{ type: "Orders", id: orderId }],
+        }),
 
     }))
 })
@@ -72,4 +101,7 @@ export const {
     useCreateOrderMutation,
     useGetOrderByIdQuery,
     useGetCustomerOrdersQuery,
+    useGetRestaurantActiveOrdersQuery,
+    useGetRestaurantCompletedOrdersQuery,
+    useRestaurantUpdateOrderStatusMutation,
 } = orderApi;

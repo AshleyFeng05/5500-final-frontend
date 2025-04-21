@@ -81,7 +81,7 @@
     }
   }
   
-  /* Mobile responsive styling */
+
   @media (max-width: 992px) {
     .order-detail-page .sticky-top {
       position: static;

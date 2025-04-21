@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Account from "../components/Account";
 import AddDishPage from "../components/AddDishPage";
 import RestaurantMenu from "../components/RestaurantMenu";
+import ActiveOrders from "../components/ActiveOrders";
+import ArchivedOrders from "../components/ArchivedOrders";
 
 const Dashboard = () => {
 
@@ -13,13 +15,13 @@ const Dashboard = () => {
 
                 <Routes>
 
-                    <Route index element={<div>Active Orders</div>} />
+                    <Route index element={<ActiveOrders />} />
 
                     <Route path="menu" element={<RestaurantMenu />} />
 
                     <Route path="add-items" element={<AddDishPage />} />
 
-                    <Route path="orders" element={<div>Orders</div>} />
+                    <Route path="orders" element={<ArchivedOrders />} />
 
                     <Route path="account" element={<Account />} />
 

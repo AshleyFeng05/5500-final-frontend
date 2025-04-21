@@ -1,0 +1,83 @@
+.restaurant-orders-page {
+    padding-bottom: 60px;
+  }
+  
+  .restaurant-orders-page h1 {
+    font-size: 1.75rem;
+  }
+  
+  .order-card {
+    transition: all 0.2s;
+    border-radius: 12px;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  }
+  
+  .new-order {
+    border-left: 4px solid #ffc107 !important;
+  }
+  
+  .preparing-order {
+    border-left: 4px solid #0dcaf0 !important;
+  }
+  
+  .ready-order {
+    border-left: 4px solid #0d6efd !important;
+  }
+  
+  .order-status-col {
+    background-color: #f8f9fa;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  
+  .status-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  
+  .status-description {
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .driver-info {
+    background-color: #f0f9ff;
+    border-left: 3px solid #0d6efd;
+  }
+  
+  /* Mobile responsive styling */
+  @media (max-width: 767px) {
+    .order-status-col {
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 0;
+      padding: 2rem 1rem !important;
+    }
+    
+    .new-order, .preparing-order, .ready-order {
+      border-left: none !important;
+      border-top: 4px solid;
+    }
+    
+    .new-order {
+      border-top-color: #ffc107 !important;
+    }
+    
+    .preparing-order {
+      border-top-color: #0dcaf0 !important;
+    }
+    
+    .ready-order {
+      border-top-color: #0d6efd !important;
+    }
+  }
