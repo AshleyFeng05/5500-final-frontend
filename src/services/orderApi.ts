@@ -94,6 +94,60 @@ export const orderApi = createApi({
             invalidatesTags: (result, error, { orderId }) => [{ type: "Orders", id: orderId }],
         }),
 
+
+
+        dasherUpdateOrderStatus: builder.mutation<OrderType, { orderId: string; status: OrderStatus; dasherId: string }>({
+            query: ({ orderId, status, dasherId }) => ({
+                url: `/status/dasher/${orderId}`,
+                method: 'PUT',
+                body: { status, dasherId },
+            }),
+            invalidatesTags: (result, error, { orderId, dasherId, status }) => [
+                { type: "Orders" as const, id: orderId },
+                // Use proper tag objects for all elements
+                ...(status === 'DELIVERED' ? [
+                    { type: "Orders" as const }, // Add "as const" to fix the type
+                    { type: "Orders" as const, id: `active-${dasherId}` }
+                ] : [])
+            ],
+        }),
+
+        getUnassignedOrders: builder.query<OrderType[], string>({
+            query: () => ({
+                url: `/unassigned`,
+                method: 'GET',
+            }),
+            providesTags: ['Orders'],
+        }),
+
+        assignOrderToDasher: builder.mutation<OrderType, { orderId: string; dasherId: string }>({
+            query: ({ orderId, dasherId }) => ({
+                url: `/assignDasher/${orderId}`,
+                method: 'PUT',
+                body: dasherId,
+            }),
+            invalidatesTags: (result, error, { orderId }) => [{ type: "Orders", id: orderId }],
+        }),
+
+        getOrdersByDasherId: builder.query<OrderType[], string>({
+            query: (dasherId) => ({
+                url: `/dasher/${dasherId}`,
+                method: 'GET',
+            }),
+            providesTags: (result, error, id) => [{ type: "Orders", id }],
+        }),
+
+        getActiveOrderByDasherId: builder.query<OrderType, string>({
+            query: (dasherId) => ({
+                url: `/dasher/${dasherId}/active`,
+                method: 'GET',
+            }),
+            // Use a tag that matches what we're invalidating
+            providesTags: (result, error, id) => [
+                { type: "Orders", id: `active-${id}` }
+            ],
+        }),
+
     }))
 })
 
@@ -104,4 +158,10 @@ export const {
     useGetRestaurantActiveOrdersQuery,
     useGetRestaurantCompletedOrdersQuery,
     useRestaurantUpdateOrderStatusMutation,
+    useDasherUpdateOrderStatusMutation,
+    useGetUnassignedOrdersQuery,
+    useAssignOrderToDasherMutation,
+    useGetOrdersByDasherIdQuery,
+    useGetActiveOrderByDasherIdQuery,
+
 } = orderApi;
