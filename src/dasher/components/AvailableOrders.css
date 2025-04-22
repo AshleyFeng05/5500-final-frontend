@@ -1,0 +1,92 @@
+.available-orders-page h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+  
+  .order-card {
+    transition: all 0.2s;
+    border-radius: 12px;
+    border-left: 4px solid #dc3545;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  }
+  
+  .icon-wrapper {
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .confirmation-card {
+    border-radius: 12px;
+    border-left: 4px solid #ffc107;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile responsive styling */
+  @media (max-width: 767px) {
+    .order-card {
+      border-left: none;
+      border-top: 4px solid #dc3545;
+    }
+    
+    .confirmation-card {
+      border-left: none;
+      border-top: 4px solid #ffc107;
+    }
+  }
+
+  .delivery-confirmation-modal .modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  .delivery-confirmation-modal .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  .delivery-confirmation-modal .modal-footer {
+    border-top: none;
+    padding-top: 0;
+  }
+  
+  .delivery-confirmation-modal .modal-title {
+    font-weight: bold;
+    color: #212529;
+  }
+  
+  .delivery-confirmation-modal .close {
+    color: #6c757d;
+  }
+  
+  /* Animation for the modal */
+  .modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+  }
+  
+  .modal.show .modal-dialog {
+    transform: none;
+  }
+  
+  .modal.fade .modal-dialog {
+    transform: translateY(-50px);
+  }

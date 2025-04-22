@@ -1,0 +1,38 @@
+.dasher-account-page h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+  
+  .dasher-account-page h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  
+  .dasher-account-page h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+  }
+  
+  .dasher-account-page .form-label {
+    font-weight: 500;
+  }
+  
+
+  
+  /* Styling for the read-only fields */
+  .dasher-account-page .form-control:read-only {
+    background-color: #f8f9fa;
+    cursor: default;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dasher-account-page h1 {
+      font-size: 1.5rem;
+    }
+    
+    .dasher-account-page h3 {
+      font-size: 1.25rem;
+    }
+  }

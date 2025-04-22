@@ -50,6 +50,13 @@ export const dasherApi = createApi({
             }),
         }),
 
+        updateDasher: builder.mutation<Partial<DasherType>, Partial<DasherType>>({
+            query: (credential) => ({
+                url: `/${credential.id}`,
+                method: "PUT",
+                body: credential,
+            }),
+        }),
 
 
     })
@@ -58,4 +65,5 @@ export const dasherApi = createApi({
 export const {
     useLoginMutation,
     useSignupMutation,
+    useUpdateDasherMutation,
 } = dasherApi;

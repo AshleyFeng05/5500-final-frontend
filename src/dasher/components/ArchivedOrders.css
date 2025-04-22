@@ -1,0 +1,49 @@
+.order-history-page h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-card {
+    background-color: #f8f9fa;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .order-card {
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+    border-left: 4px solid #e9ecef;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.10)!important;
+  }
+  
+  /* Status-specific styling */
+  .order-card:has(.bg-success) {
+    border-left-color: #198754;
+  }
+  
+  .order-card:has(.bg-info) {
+    border-left-color: #0dcaf0;
+  }
+  
+  .order-card:has(.bg-primary) {
+    border-left-color: #0d6efd;
+  }
+  
+  .order-card:has(.bg-danger) {
+    border-left-color: #dc3545;
+  }
+  
+  @media (max-width: 767px) {
+    .order-history-page h1 {
+      font-size: 1.5rem;
+    }
+    
+    .order-card {
+      margin-bottom: 1rem;
+    }
+  }

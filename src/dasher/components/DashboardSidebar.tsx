@@ -1,12 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../restaurant/components/DashboardSidebar.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faRectangleList, faUser } from "@fortawesome/free-regular-svg-icons";
 
 
 const navItems = [
     { name: "Active Order", icon: faClipboardList, link: "" },
+    { name: "Available Orders", icon: faListCheck, link: "/available-orders" },
     { name: "Orders", icon: faRectangleList, link: "/orders" },
     { name: "Account", icon: faUser, link: "/account" }
 ]

@@ -63,8 +63,8 @@ const ActiveOrder: React.FC = () => {
             <Container className="py-5 text-center">
                 <h3>Please log in to view your deliveries</h3>
                 <Button
-                    variant="primary"
-                    className="mt-3"
+                    variant="danger"
+                    className="mt-3 rounded-pill"
                     onClick={() => navigate('/dasher')}
                 >
                     Dasher Login
@@ -88,9 +88,9 @@ const ActiveOrder: React.FC = () => {
                 <h3>You don't have any active deliveries</h3>
                 <p className="mt-3">Check available orders to start delivering</p>
                 <Button
-                    variant="primary"
-                    className="mt-3"
-                    onClick={() => navigate('/dasher/available-orders')}
+                    variant="danger"
+                    className="mt-3 rounded-pill"
+                    onClick={() => navigate('/dasher/dashboard/available-orders')}
                 >
                     Find Available Orders
                 </Button>

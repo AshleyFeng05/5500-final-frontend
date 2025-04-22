@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { CustomerType } from "./customerApi";
 import { RestaurantType } from "./restaurantApi";
+import { set } from "date-fns";
 
 interface AuthState {
     customerAuthenticated: boolean;
@@ -56,6 +57,9 @@ const authSlice = createSlice({
             state.dasherAuthenticated = false;
             state.dasher = null;
             localStorage.removeItem("auth:dasher");
+        },
+        setDasher: (state, action) => {
+            state.dasher = action.payload;
         }
     }
 });
@@ -68,7 +72,8 @@ export const {
     restaurantLogout,
     setRestaurant,
     dasherLogin,
-    dasherLogout
+    dasherLogout,
+    setDasher
 } = authSlice.actions;
 
 export default authSlice.reducer;
