@@ -40,7 +40,7 @@ npm install
 ```
 
 3. (Optional) Create a .env file in the root directory with the following content:
-REACT_APP_BASE_API=`<backend-url>`. default url is http://localhost:8080
+`REACT_APP_BASE_API=<backend-url>`. default url is http://localhost:8080
 
 4. Start the development server
 ```bash
