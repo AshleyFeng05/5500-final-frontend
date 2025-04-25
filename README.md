@@ -25,19 +25,13 @@ This project is a comprehensive food delivery application built with React and T
 
 ### Customer Experience
 <div align="center">
-  <video autoplay loop muted playsinline>
-    <source src="docs/videos/customer-demo.mp4" type="video/mp4">
-  </video>
+  <img src="docs/images/customer-demo.gif" alt="Customer Demo" width="600"/>
 </div>
-
+*Customers can browse restaurants, place orders, and track deliveries*
 
 
 
 ## Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
 
 ### Installation
 
