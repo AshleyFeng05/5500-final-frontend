@@ -19,6 +19,19 @@ This project is a comprehensive food delivery application built with React and T
   
 - **Backend**:
   - Connects to a REST API (at http://localhost:8080 by default)
+  - Link to backend repo: https://github.com/XieWen2000/final_backend_5500
+
+## Features Showcase
+
+### Customer Experience
+<div align="center">
+  <video autoplay loop muted playsinline>
+    <source src="docs/videos/customer-demo.mp4" type="video/mp4">
+  </video>
+</div>
+
+
+
 
 ## Getting Started
 
