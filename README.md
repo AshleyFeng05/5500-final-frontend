@@ -29,7 +29,17 @@ This project is a comprehensive food delivery application built with React and T
 </div>
 *Customers can browse restaurants, place orders, and track deliveries*
 
+### Restaurant Experience
+<div align="center">
+  <img src="docs/images/restaurant-demo.gif" alt="Customer Demo" width="600"/>
+</div>
+*Restaurants can accept orders, update order status, and create, upload, delete menu items*
 
+### Dasher Experience 
+<div align="center">
+  <img src="docs/images/dasher-demo.gif" alt="Customer Demo" width="600"/>
+</div>
+*Dashers can accept deliverys, update the status* 
 
 ## Getting Started
 
